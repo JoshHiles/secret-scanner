@@ -1,0 +1,70 @@
+{
+  "name": "secret-scanner",
+  "version": "0.0.0-development",
+  "description": "secret scanner",
+  "keywords": [],
+  "license": "MIT",
+  "main": "./dist/cli.js",
+  "bin": "./dist/cli.js",
+  "files": [
+    "dist/**/*",
+    "!dist/**/*.test.js"
+  ],
+  "scripts": {
+    "scan": "ts-node ./src/cli.ts scan -d ./testing",
+    "audit": "ts-node ./src/cli.ts audit",
+    "hook": "ts-node ./src/cli.ts scan -h ",
+    "clean": "rimraf ./dist/ ./exec/",
+    "build": "tsc",
+    "test": "npm run build && ava --verbose",
+    "bundle": "tsc && pkg . --out-dir ./exec/",
+    "lint": "eslint '*/**/*.{js,ts,tsx}'",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.1",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/npm": "^8.0.0",
+    "@semantic-release/release-notes-generator": "^10.0.2",
+    "@types/inquirer": "^8.1.2",
+    "@types/luxon": "^2.0.4",
+    "@types/nodegit": "^0.27.3",
+    "@types/yargs": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "ava": "^3.15.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "pinst": "^2.1.6",
+    "pkg": "^5.3.2",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^18.0.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "clear": "^0.1.0",
+    "inquirer": "^8.1.5",
+    "luxon": "^2.0.2",
+    "nodegit": "^0.27.0",
+    "rc": "^1.2.8",
+    "yargs": "^17.2.0"
+  },
+  "packageManager": "yarn@3.0.2",
+  "pkg": {
+    "assets": [
+      "src/plugins/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoshHiles/secret-scanner.git"
+  }
+}
