@@ -14,6 +14,8 @@ export default class FileHelper {
         '**/yarn.lock',
         '**/detect-secret-baseline.json',
         '**/.secret-scannerrc',
+        '**/.nyc_output',
+        '**/.git',
     ];
 
     constructor(configuration: Configuration) {
