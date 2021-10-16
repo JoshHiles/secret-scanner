@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/JoshHiles/secret-scanner/compare/v1.0.1...v1.0.2) (2021-10-16)
+
+
+### Bug Fixes
+
+* **Slack:** Fix unescaped . ([c863e3c](https://github.com/JoshHiles/secret-scanner/commit/c863e3cb017b193ffb746fe174db4e0852090eba))
+
 ## [1.0.1](https://github.com/JoshHiles/secret-scanner/compare/v1.0.0...v1.0.1) (2021-10-16)
 
 
