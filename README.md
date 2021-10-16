@@ -112,23 +112,25 @@ Excluding secrets is as easy as writing the secret to be excluded or a regex.
 ## CLI
 
 ```
-secret-scanner
-
-Commands:
-    scan    Scans directories / scans committed files
-    audit   Audit the baseline file
-
-Options:
-    --version   Show version number
-    --help      Show help
-```
-
-```
-secret-scanner scan
+secret-scanner.js scan
 
 Scans directories / scans committed files
 
 Options:
-    -h, --hook          Used for pre-hooks
-    -d, --directory     Directory to scan, default is current working directory
+      --version   Show version number                                  [boolean]
+      --help      Show help                                            [boolean]
+  -h, --hook      Used for pre-hooks
+  -l, --location  Location to scan using glob pattern, default is current
+                  working dir                     [default: "D:\Code\tester/**"]
+  -d, --debug
+```
+
+```
+secret-scanner.js audit
+
+Audit the baseline file
+
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
 ```
