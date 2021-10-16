@@ -4,7 +4,7 @@ import { StopWatch } from 'stopwatch-node';
 
 import Baseline from './Baseline';
 import FileHelper from './helpers/File.helper';
-import Configuration from './configuration';
+import Configuration from './Configuration';
 import PluginHelper from './helpers/Plugin.helper';
 import Runner from './Runner';
 import Helpers from './helpers/Helpers';

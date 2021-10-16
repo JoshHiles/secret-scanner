@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import { createInterface } from 'readline';
 import { createReadStream } from 'fs';
 
-import Configuration from './configuration';
+import Configuration from './Configuration';
 import IPlugin from './models/IPlugin';
 import Baseline from './Baseline';
 import Result from './models/Result';
