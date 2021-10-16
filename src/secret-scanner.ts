@@ -22,7 +22,7 @@ export async function run() {
                     .option('location', {
                         alias: 'l',
                         describe: 'Location to scan using glob pattern, default is current working dir',
-                        default: `${process.cwd()}/**`,
+                        default: `${process.cwd().replace(/\\/g, '/')}/**`,
                     })
                     .option('debug', {
                         alias: 'd',
@@ -38,14 +38,9 @@ export async function run() {
                         await scanner.Hook(files);
                     });
                 } else {
-                    let location = process.cwd();
-
-                    if (argv.location) {
-                        location = argv.location;
-                    }
                     console.info(`\nBeginning scan on:`);
-                    console.info(chalk.blue.bold(`        ${location}`));
-                    await scanner.Scan(location);
+                    console.info(chalk.blue.bold(`        ${argv.location}`));
+                    await scanner.Scan(argv.location);
                 }
             },
         )
