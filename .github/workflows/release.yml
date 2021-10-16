@@ -22,8 +22,8 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Build & Bundle
-              run: npm run bundle
+            - name: Build
+              run: npm run build
 
             - name: Release
               env:
