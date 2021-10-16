@@ -14,6 +14,8 @@ class FileHelper {
             '**/yarn.lock',
             '**/detect-secret-baseline.json',
             '**/.secret-scannerrc',
+            '**/.nyc_output',
+            '**/.git',
         ];
         this.configuration = configuration;
     }
