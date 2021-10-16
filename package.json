@@ -1,8 +1,12 @@
 {
     "name": "secret-scanner",
+    "author": "Joshua Hiles",
     "version": "0.0.0",
     "description": "secret scanner",
-    "keywords": [],
+    "keywords": [
+        "secret",
+        "scanner"
+    ],
     "license": "MIT",
     "main": "./dist/secret-scanner.js",
     "bin": "./dist/secret-scanner.js",
@@ -49,7 +53,6 @@
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
-        "husky": "^7.0.0",
         "mocha": "^9.1.2",
         "mock-fs": "^5.1.1",
         "nyc": "^15.1.0",
@@ -62,7 +65,8 @@
         "ts-mocha": "^8.0.0",
         "ts-node": "^10.2.1",
         "typedoc": "^0.22.5",
-        "typescript": "^4.4.3"
+        "typescript": "^4.4.3",
+        "husky": "^7.0.0"
     },
     "dependencies": {
         "chalk": "^4.1.2",
@@ -83,5 +87,6 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/JoshHiles/secret-scanner.git"
-    }
+    },
+    "bugs": "https://github.com/JoshHiles/secret-scanner/labels/bug"
 }
