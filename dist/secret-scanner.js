@@ -21,7 +21,7 @@ async function run() {
             .option('location', {
             alias: 'l',
             describe: 'Location to scan using glob pattern, default is current working dir',
-            default: `${process.cwd()}/**`,
+            default: `${process.cwd().replace(/\\/g, '/')}/**`,
         })
             .option('debug', {
             alias: 'd',
@@ -37,13 +37,9 @@ async function run() {
             });
         }
         else {
-            let location = process.cwd();
-            if (argv.location) {
-                location = argv.location;
-            }
             console.info(`\nBeginning scan on:`);
-            console.info(chalk_1.default.blue.bold(`        ${location}`));
-            await scanner.Scan(location);
+            console.info(chalk_1.default.blue.bold(`        ${argv.location}`));
+            await scanner.Scan(argv.location);
         }
     })
         .command('audit', 'Audit the baseline file', (yargs) => {
