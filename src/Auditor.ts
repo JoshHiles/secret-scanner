@@ -33,7 +33,7 @@ export default class Auditor {
                     },
                 ]);
                 console.info(userInput);
-                result.is_secret = userInput.confirm;
+                result.is_secret = !userInput.confirm;
                 clear();
             }
         }
