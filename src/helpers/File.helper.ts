@@ -7,7 +7,7 @@ import { FileType } from '../models/filetype.enum';
 import { extname } from 'path';
 
 export default class FileHelper {
-    private configuration: Configuration;
+    private Configuration: Configuration;
     private defaultIgnoreFiles = [
         '**/node_modules',
         '**/package-lock.json',
@@ -19,12 +19,12 @@ export default class FileHelper {
     ];
 
     constructor(configuration: Configuration) {
-        this.configuration = configuration;
+        this.Configuration = configuration;
     }
 
     GetFiles(filesAndDirectories: string[]): string[] {
         const arrayOfFiles = fg.sync(filesAndDirectories, {
-            ignore: this.defaultIgnoreFiles.concat(this.configuration.exclude.files),
+            ignore: this.defaultIgnoreFiles.concat(this.Configuration.exclude.files),
             dot: true,
             followSymbolicLinks: false,
         });
