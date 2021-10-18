@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { readdirSync } from 'fs';
-import { parse } from 'path';
+import path, { parse } from 'path';
 
 import Configuration from '../Configuration';
 import IPlugin from '../models/IPlugin';
@@ -13,12 +13,13 @@ export default class PluginHelper {
         this.Configuration = configuration;
     }
 
-    LoadPlugins(dirName = __dirname): string[] {
-        const plugins = readdirSync(`${dirName}\\..\\plugins`);
+    LoadPlugins(): string[] {
+        let plugins = readdirSync(path.resolve(__dirname, '../', 'plugins'));
         const configuration = this.Configuration;
 
+        /* istanbul ignore else */
         if (configuration.disable_plugins.length > 0) {
-            return plugins.filter(function (plugin) {
+            plugins = plugins.filter(function (plugin) {
                 return !configuration.disable_plugins.includes(parse(plugin).name);
             });
         }
@@ -33,7 +34,8 @@ export default class PluginHelper {
 
     static async LoadPlugin(pluginName: string, file: string): Promise<IPlugin> {
         pluginName = parse(pluginName).name;
-        const pluginImport = await import(`${__dirname}\\..\\plugins/${pluginName}`);
+
+        const pluginImport = await import(path.resolve(__dirname, '../', 'plugins', pluginName));
         return new pluginImport.default(FileHelper.DetermineFileType(file));
     }
 }
