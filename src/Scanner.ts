@@ -7,9 +7,11 @@ import FileHelper from './helpers/File.helper';
 import Configuration from './Configuration';
 import PluginHelper from './helpers/Plugin.helper';
 import Runner from './Runner';
-import Helpers from './helpers/Helpers';
+import { Duration } from 'luxon';
 
-export class Scanner {
+chalk.level = 3;
+
+export default class Scanner {
     PluginHelper: PluginHelper;
     FileHelper: FileHelper;
     Configuration: Configuration;
@@ -29,7 +31,7 @@ export class Scanner {
         this.Runner = new Runner(this.Configuration, this.Baseline, this.Plugins);
     }
 
-    async Scan(directory: string): Promise<void> {
+    async Scan(directory: string): Promise<Baseline> {
         this.Stopwatch.start('Get Files');
         const files = this.FileHelper.GetFiles([directory]);
         this.Stopwatch.stop();
@@ -39,12 +41,8 @@ export class Scanner {
         this.Stopwatch.stop();
 
         const totalTime = this.Stopwatch.getTotalTime();
-        const timeTaken = Helpers.millisToMinutesAndSeconds(totalTime);
-        if (timeTaken === undefined) {
-            console.info(chalk`\nTook: {blue.bold ${totalTime}} (milli)`);
-        } else {
-            console.info(chalk`\nTook: {blue.bold ${timeTaken[0]}:${timeTaken[1]}} (min:sec)`);
-        }
+        const timeTaken = Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
+        console.info(chalk`\nTook: {blue.bold ${timeTaken}}`);
 
         if (process.env.DEBUG == '1') {
             console.log();
@@ -60,6 +58,7 @@ export class Scanner {
 
         this.Baseline.plugins = pluginsNormalised;
         Baseline.SaveBaselineToFile(this.Baseline);
+        return this.Baseline;
     }
 
     async Hook(files: string[]): Promise<void> {
@@ -69,22 +68,14 @@ export class Scanner {
         this.Stopwatch.stop();
 
         const totalTime = this.Stopwatch.getTotalTime();
-
-        const timeTaken = Helpers.millisToMinutesAndSeconds(totalTime);
-
-        if (timeTaken === undefined) {
-            console.info(chalk`\nTook: {blue.bold ${totalTime}} (milli)\n`);
-        } else {
-            console.info(chalk`\nTook: {blue.bold ${timeTaken[0]}:${timeTaken[1]}} (min:sec)\n`);
-        }
+        const timeTaken = Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
+        console.info(chalk`\nTook: {blue.bold ${timeTaken}`);
 
         if (process.env.DEBUG == '1') {
             console.log();
 
             this.Stopwatch.prettyPrint();
         }
-
-        chalk.level = 3;
 
         if (Object.keys(resultsArray).length === 0) {
             console.info(chalk.green(`\nNo secrets found`));
