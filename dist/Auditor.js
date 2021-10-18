@@ -29,7 +29,7 @@ class Auditor {
                     },
                 ]);
                 console.info(userInput);
-                result.is_secret = userInput.confirm;
+                result.is_secret = !userInput.confirm;
                 (0, clear_1.default)();
             }
         }

@@ -17,11 +17,11 @@ class FileHelper {
             '**/.nyc_output',
             '**/.git',
         ];
-        this.configuration = configuration;
+        this.Configuration = configuration;
     }
     GetFiles(filesAndDirectories) {
         const arrayOfFiles = fast_glob_1.default.sync(filesAndDirectories, {
-            ignore: this.defaultIgnoreFiles.concat(this.configuration.exclude.files),
+            ignore: this.defaultIgnoreFiles.concat(this.Configuration.exclude.files),
             dot: true,
             followSymbolicLinks: false,
         });

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Scanner = void 0;
 const tslib_1 = require("tslib");
 const path_1 = require("path");
 const chalk_1 = (0, tslib_1.__importDefault)(require("chalk"));
@@ -10,7 +9,8 @@ const File_helper_1 = (0, tslib_1.__importDefault)(require("./helpers/File.helpe
 const Configuration_1 = (0, tslib_1.__importDefault)(require("./Configuration"));
 const Plugin_helper_1 = (0, tslib_1.__importDefault)(require("./helpers/Plugin.helper"));
 const Runner_1 = (0, tslib_1.__importDefault)(require("./Runner"));
-const Helpers_1 = (0, tslib_1.__importDefault)(require("./helpers/Helpers"));
+const luxon_1 = require("luxon");
+chalk_1.default.level = 3;
 class Scanner {
     constructor() {
         this.Configuration = new Configuration_1.default();
@@ -29,13 +29,8 @@ class Scanner {
         this.Baseline.results = await this.Runner.Run(files);
         this.Stopwatch.stop();
         const totalTime = this.Stopwatch.getTotalTime();
-        const timeTaken = Helpers_1.default.millisToMinutesAndSeconds(totalTime);
-        if (timeTaken === undefined) {
-            console.info((0, chalk_1.default) `\nTook: {blue.bold ${totalTime}} (milli)`);
-        }
-        else {
-            console.info((0, chalk_1.default) `\nTook: {blue.bold ${timeTaken[0]}:${timeTaken[1]}} (min:sec)`);
-        }
+        const timeTaken = luxon_1.Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
+        console.info((0, chalk_1.default) `\nTook: {blue.bold ${timeTaken}}`);
         if (process.env.DEBUG == '1') {
             console.log();
             this.Stopwatch.prettyPrint();
@@ -47,6 +42,7 @@ class Scanner {
         });
         this.Baseline.plugins = pluginsNormalised;
         Baseline_1.default.SaveBaselineToFile(this.Baseline);
+        return this.Baseline;
     }
     async Hook(files) {
         this.Stopwatch.start('Scan Files');
@@ -54,18 +50,12 @@ class Scanner {
         const resultsArray = await this.Runner.Run(files);
         this.Stopwatch.stop();
         const totalTime = this.Stopwatch.getTotalTime();
-        const timeTaken = Helpers_1.default.millisToMinutesAndSeconds(totalTime);
-        if (timeTaken === undefined) {
-            console.info((0, chalk_1.default) `\nTook: {blue.bold ${totalTime}} (milli)\n`);
-        }
-        else {
-            console.info((0, chalk_1.default) `\nTook: {blue.bold ${timeTaken[0]}:${timeTaken[1]}} (min:sec)\n`);
-        }
+        const timeTaken = luxon_1.Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
+        console.info((0, chalk_1.default) `\nTook: {blue.bold ${timeTaken}`);
         if (process.env.DEBUG == '1') {
             console.log();
             this.Stopwatch.prettyPrint();
         }
-        chalk_1.default.level = 3;
         if (Object.keys(resultsArray).length === 0) {
             console.info(chalk_1.default.green(`\nNo secrets found`));
             process.exitCode = 0;
@@ -109,4 +99,4 @@ class Scanner {
         }
     }
 }
-exports.Scanner = Scanner;
+exports.default = Scanner;

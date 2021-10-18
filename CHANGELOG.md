@@ -1,3 +1,11 @@
+## [1.0.3](https://github.com/JoshHiles/secret-scanner/compare/v1.0.2...v1.0.3) (2021-10-18)
+
+
+### Bug Fixes
+
+* **Auditor:** swap is secret from audit around ([73045e5](https://github.com/JoshHiles/secret-scanner/commit/73045e59fa671af3e828fe77e87386c0c5dbaf26))
+* **PluginHelper:** Loading plugins with disabled, resolving filepath for plugins ([2c95a9d](https://github.com/JoshHiles/secret-scanner/commit/2c95a9d9caa2c82504a467f3fe0edae04f0349bc))
+
 ## [1.0.2](https://github.com/JoshHiles/secret-scanner/compare/v1.0.1...v1.0.2) (2021-10-16)
 
 

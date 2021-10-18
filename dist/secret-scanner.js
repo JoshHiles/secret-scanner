@@ -6,7 +6,7 @@ const tslib_1 = require("tslib");
 const yargs_1 = (0, tslib_1.__importDefault)(require("yargs"));
 const helpers_1 = require("yargs/helpers");
 const Auditor_1 = (0, tslib_1.__importDefault)(require("./Auditor"));
-const Scanner_1 = require("./Scanner");
+const Scanner_1 = (0, tslib_1.__importDefault)(require("./Scanner"));
 const Git_helper_1 = (0, tslib_1.__importDefault)(require("./helpers/Git.helper"));
 const chalk_1 = (0, tslib_1.__importDefault)(require("chalk"));
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -27,7 +27,7 @@ async function run() {
             alias: 'd',
         });
     }, async (argv) => {
-        const scanner = new Scanner_1.Scanner();
+        const scanner = new Scanner_1.default();
         if (argv.debug) {
             process.env.DEBUG = '1';
         }
