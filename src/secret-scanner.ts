@@ -3,7 +3,7 @@ import yargs, { Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import Auditor from './Auditor';
-import { Scanner } from './Scanner';
+import Scanner from './Scanner';
 import GitHelper from './helpers/Git.helper';
 import chalk from 'chalk';
 
