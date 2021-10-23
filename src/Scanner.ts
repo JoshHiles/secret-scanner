@@ -1,121 +1,121 @@
 import { parse } from 'path';
 import chalk from 'chalk';
 import { StopWatch } from 'stopwatch-node';
+import { Duration } from 'luxon';
 
 import Baseline from './Baseline';
 import FileHelper from './helpers/File.helper';
 import Configuration from './Configuration';
 import PluginHelper from './helpers/Plugin.helper';
 import Runner from './Runner';
-import { Duration } from 'luxon';
+import Results from './models/Results';
 
 chalk.level = 3;
 
 export default class Scanner {
-    PluginHelper: PluginHelper;
-    FileHelper: FileHelper;
-    Configuration: Configuration;
-    Baseline: Baseline;
-    Plugins: string[];
-    Stopwatch: StopWatch;
-    Runner: Runner;
-
-    constructor() {
-        this.Configuration = new Configuration();
-        this.PluginHelper = new PluginHelper(this.Configuration);
-        this.FileHelper = new FileHelper(this.Configuration);
-
-        this.Baseline = new Baseline();
-        this.Plugins = this.PluginHelper.LoadPlugins();
-        this.Stopwatch = new StopWatch('Scanner');
-        this.Runner = new Runner(this.Configuration, this.Baseline, this.Plugins);
-    }
-
     async Scan(directory: string): Promise<Baseline> {
-        this.Stopwatch.start('Get Files');
-        const files = this.FileHelper.GetFiles([directory]);
-        this.Stopwatch.stop();
+        const configuration = new Configuration();
+        let baseline = new Baseline();
+        const plugins = new PluginHelper(configuration).LoadPlugins();
 
-        this.Stopwatch.start('Scan Files');
-        this.Baseline.results = await this.Runner.Run(files);
-        this.Stopwatch.stop();
+        const files = new FileHelper(configuration).GetFiles([directory]);
 
-        const totalTime = this.Stopwatch.getTotalTime();
-        const timeTaken = Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
-        console.info(chalk`\nTook: {blue.bold ${timeTaken}}`);
+        baseline.results = await new Runner(configuration, baseline, plugins).Run(files);
 
-        if (process.env.DEBUG == '1') {
-            console.log();
-            this.Stopwatch.prettyPrint();
-        }
-
-        this.Baseline = Baseline.SetGeneratedAt(this.Baseline);
+        baseline = Baseline.SetGeneratedAt(baseline);
 
         const pluginsNormalised: string[] = [];
-        this.Plugins.forEach((plugin) => {
+        plugins.forEach((plugin) => {
             pluginsNormalised.push(parse(plugin).name);
         });
 
-        this.Baseline.plugins = pluginsNormalised;
-        Baseline.SaveBaselineToFile(this.Baseline);
-        return this.Baseline;
+        baseline.plugins = pluginsNormalised;
+        Baseline.SaveBaselineToFile(baseline);
+        return baseline;
     }
 
     async Hook(files: string[]): Promise<void> {
-        this.Stopwatch.start('Scan Files');
-        this.FileHelper.GetFiles(files);
-        const resultsArray = await this.Runner.Run(files);
-        this.Stopwatch.stop();
+        const configuration = new Configuration();
+        const baseline = new Baseline();
+        const plugins = new PluginHelper(configuration).LoadPlugins();
+        console.log(plugins);
 
-        const totalTime = this.Stopwatch.getTotalTime();
-        const timeTaken = Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
-        console.info(chalk`\nTook: {blue.bold ${timeTaken}`);
-
-        if (process.env.DEBUG == '1') {
-            console.log();
-
-            this.Stopwatch.prettyPrint();
-        }
+        files = new FileHelper(configuration).GetFiles(files);
+        let resultsArray = await new Runner(configuration, baseline, plugins).Run(files);
 
         if (Object.keys(resultsArray).length === 0) {
-            console.info(chalk.green(`\nNo secrets found`));
-            process.exitCode = 0;
+            this.NoSecretsFound();
+            return;
         } else {
-            for (const resultKey in resultsArray) {
-                const resultArray = resultsArray[resultKey];
+            resultsArray = this.DeleteResultsWhichAreNotSecretsInBaseline(resultsArray, baseline);
 
-                if (resultKey in this.Baseline.results) {
-                    const foundInBaseline = this.Baseline.results[resultKey];
-                    for (const result of resultArray) {
-                        for (const baselineResult of foundInBaseline) {
-                            const typeMatch = baselineResult.type === result.type;
-                            const lineMatch = baselineResult.line_number === result.line_number;
-                            const hashMatch = baselineResult.hashed_secret === result.hashed_secret;
-                            if (typeMatch && lineMatch && hashMatch) {
-                                if (!baselineResult.is_secret) {
-                                    delete resultsArray[resultKey];
+            if (Object.keys(resultsArray).length === 0) {
+                this.NoSecretsFound();
+                return;
+            } else {
+                this.SecretsFound(resultsArray);
+                return;
+            }
+        }
+    }
+
+    private NoSecretsFound(): void {
+        console.info(chalk.green(`\nNo secrets found`));
+        process.exitCode = 0;
+    }
+
+    private SecretsFound(resultsArray: Results): void {
+        process.exitCode = 1;
+        console.log();
+        for (const resultKey in resultsArray) {
+            const results = resultsArray[resultKey];
+            results.forEach((result) => {
+                console.error(chalk`Secret found {red.bold ${resultKey}}`);
+                console.error(chalk`      Secret Type: {red.bold ${result.type}}`);
+                console.error(chalk`      Secret Line number: {red.bold ${result.line_number}}`);
+                console.error(chalk`      Secret Hash: {red.bold ${result.hashed_secret}}\n`);
+            });
+        }
+    }
+
+    private DeleteResultsWhichAreNotSecretsInBaseline(resultsArray: Results, baseline: Baseline): Results {
+        for (const resultKey in resultsArray) {
+            const resultArray = resultsArray[resultKey];
+
+            if (resultKey in baseline.results) {
+                const foundInBaseline = baseline.results[resultKey];
+
+                for (const result of resultArray) {
+                    for (const baselineResult of foundInBaseline) {
+                        const typeMatch = baselineResult.type === result.type;
+                        const lineMatch = baselineResult.line_number === result.line_number;
+                        const hashMatch = baselineResult.hashed_secret === result.hashed_secret;
+                        if (typeMatch && lineMatch && hashMatch) {
+                            if (!baselineResult.is_secret) {
+                                const index = resultsArray[resultKey].indexOf(result, 0);
+                                if (index > -1) {
+                                    resultsArray[resultKey].splice(index, 1);
                                 }
                             }
                         }
                     }
                 }
             }
-            if (Object.keys(resultsArray).length === 0) {
-                console.info(chalk.green(`\nNo secrets found`));
-                process.exitCode = 0;
-            } else {
-                process.exitCode = 1;
-                console.log();
-                for (const resultKey in resultsArray) {
-                    const results = resultsArray[resultKey];
-                    results.forEach((result) => {
-                        console.error(chalk`Secret found {red.bold ${resultKey}}`);
-                        console.error(chalk`      Secret Type: {red.bold ${result.type}}`);
-                        console.error(chalk`      Secret Line number: {red.bold ${result.line_number}}`);
-                        console.error(chalk`      Secret Hash: {red.bold ${result.hashed_secret}}\n`);
-                    });
-                }
-            }
         }
+
+        return resultsArray;
     }
 }
+
+// const stopwatch = new StopWatch('Scanner');
+// stopwatch.start('Get Files');
+// stopwatch.stop();
+// const totalTime = stopwatch.getTotalTime();
+// const timeTaken = Duration.fromMillis(totalTime).toFormat("mm' minutes' ss' seconds' SSS' milliseconds'");
+// console.info(`\nTook:`);
+// console.info(chalk.blue.bold(`${timeTaken}`));
+
+// if (process.env.DEBUG == '1') {
+//     console.log();
+//     stopwatch.prettyPrint();
+// }

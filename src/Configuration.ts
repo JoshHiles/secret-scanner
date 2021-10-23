@@ -1,4 +1,5 @@
 import { cosmiconfigSync } from 'cosmiconfig';
+import { CosmiconfigResult } from 'cosmiconfig/dist/types';
 
 export default class Configuration {
     disable_plugins: string[];
@@ -9,8 +10,7 @@ export default class Configuration {
     };
 
     constructor() {
-        const explorerSync = cosmiconfigSync('secret-scanner');
-        const searchedFor = explorerSync.search();
+        const comsiConfig = Configuration.LoadCosmiConfig();
 
         this.disable_plugins = [];
         this.exclude = {
@@ -19,13 +19,19 @@ export default class Configuration {
             secrets: [],
         };
 
-        if (searchedFor != undefined) {
-            this.disable_plugins = searchedFor.config.disable_plugins;
+        if (comsiConfig != undefined) {
+            this.disable_plugins = comsiConfig.config.disable_plugins;
             this.exclude = {
-                lines: searchedFor.config.exclude.lines,
-                files: searchedFor.config.exclude.files,
-                secrets: searchedFor.config.exclude.secrets,
+                lines: comsiConfig.config.exclude.lines,
+                files: comsiConfig.config.exclude.files,
+                secrets: comsiConfig.config.exclude.secrets,
             };
         }
+    }
+
+    /* istanbul ignore next */
+    private static LoadCosmiConfig(): CosmiconfigResult {
+        const explorerSync = cosmiconfigSync('secret-scanner');
+        return explorerSync.search();
     }
 }

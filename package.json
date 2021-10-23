@@ -53,6 +53,7 @@
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "husky": "^7.0.0",
         "mocha": "^9.1.2",
         "mock-fs": "^5.1.1",
         "nyc": "^15.1.0",
@@ -64,9 +65,9 @@
         "sinon-chai": "^3.7.0",
         "ts-mocha": "^8.0.0",
         "ts-node": "^10.2.1",
+        "ts-sinon": "^2.0.2",
         "typedoc": "^0.22.5",
-        "typescript": "^4.4.3",
-        "husky": "^7.0.0"
+        "typescript": "^4.4.3"
     },
     "dependencies": {
         "chalk": "^4.1.2",
@@ -77,6 +78,7 @@
         "luxon": "^2.0.2",
         "nodegit": "^0.27.0",
         "stopwatch-node": "^1.1.0",
+        "tslib": "^2.3.1",
         "yargs": "^17.2.1"
     },
     "pkg": {

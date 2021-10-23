@@ -6,8 +6,10 @@
 
 Based off the well established [Yelp detect-secrets](https://github.com/Yelp/detect-secrets) (please go check them out if your using python!), _secret-scanner_ aims to provide a similiar experience within the node realm.
 
--   [Recent Changes]()
--   [Contributing]()
+-   [Issues](https://github.com/JoshHiles/secret-scanner/issues)
+-   [Discussions](https://github.com/JoshHiles/secret-scanner/discussions)
+-   [Recent Changes](CHANGELOG.md)
+<!-- -   [Contributing]() -->
 
 ### Sections
 

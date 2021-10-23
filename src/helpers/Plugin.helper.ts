@@ -15,6 +15,7 @@ export default class PluginHelper {
 
     LoadPlugins(): string[] {
         let plugins = readdirSync(path.resolve(__dirname, '../', 'plugins'));
+        console.log(plugins);
         const configuration = this.Configuration;
 
         /* istanbul ignore else */

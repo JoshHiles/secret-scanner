@@ -16,6 +16,8 @@ export default class FileHelper {
         '**/.secret-scannerrc',
         '**/.nyc_output',
         '**/.git',
+        '**/.yarn',
+        '**/.pnp.cjs',
     ];
 
     constructor(configuration: Configuration) {
