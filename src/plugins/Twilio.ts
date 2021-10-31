@@ -1,6 +1,6 @@
-import IPlugin from '../models/IPlugin';
+import Plugin from '../types/Plugin';
 
-export default class Twilio implements IPlugin {
+export default class Twilio implements Plugin {
     Name = 'Twilio';
     // Account SID (ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
     // Auth token (SKxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)

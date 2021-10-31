@@ -1,14 +1,13 @@
+import fg from 'fast-glob';
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
-import Configuration from '../Configuration';
-import fg from 'fast-glob';
-
-import { FileType } from '../models/filetype.enum';
 import { extname } from 'path';
 
+import Configuration from '../types/Configuration';
+import { FileType } from '../types/FileType.enum';
+
 export default class FileHelper {
-    private Configuration: Configuration;
-    private defaultIgnoreFiles = [
+    defaultIgnoreFiles = [
         '**/node_modules',
         '**/package-lock.json',
         '**/yarn.lock',
@@ -20,13 +19,9 @@ export default class FileHelper {
         '**/.pnp.cjs',
     ];
 
-    constructor(configuration: Configuration) {
-        this.Configuration = configuration;
-    }
-
-    GetFiles(filesAndDirectories: string[]): string[] {
+    GetFiles(filesAndDirectories: string[], configuration: Configuration): string[] {
         const arrayOfFiles = fg.sync(filesAndDirectories, {
-            ignore: this.defaultIgnoreFiles.concat(this.Configuration.exclude.files),
+            ignore: this.defaultIgnoreFiles.concat(configuration.exclude.files),
             dot: true,
             followSymbolicLinks: false,
         });
@@ -34,7 +29,23 @@ export default class FileHelper {
         return arrayOfFiles;
     }
 
-    static DetermineFileType(file: string): FileType {
+    async GetSecret(file: string, lineNumber: number): Promise<string | undefined> {
+        const rl = createInterface({
+            input: createReadStream(file),
+            crlfDelay: Infinity,
+        });
+
+        let lineNumberCount = 1;
+        for await (const line of rl) {
+            if (lineNumberCount == lineNumber) {
+                return line.trim();
+            }
+            lineNumberCount++;
+        }
+        return undefined;
+    }
+
+    DetermineFileType(file: string): FileType {
         const fileExtension = extname(file);
         switch (fileExtension) {
             case '.cls':
@@ -88,21 +99,5 @@ export default class FileHelper {
             default:
                 return FileType.OTHER;
         }
-    }
-
-    static async GetSecret(file: string, lineNumber: number): Promise<string | undefined> {
-        const rl = createInterface({
-            input: createReadStream(file),
-            crlfDelay: Infinity,
-        });
-
-        let lineNumberCount = 1;
-        for await (const line of rl) {
-            if (lineNumberCount == lineNumber) {
-                return line.trim();
-            }
-            lineNumberCount++;
-        }
-        return undefined;
     }
 }

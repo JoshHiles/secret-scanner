@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import yargs, { Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
-
-import Auditor from './Auditor';
-import Scanner from './Scanner';
-import GitHelper from './helpers/Git.helper';
 import chalk from 'chalk';
+
+import { GetStagedChanges } from './helpers/Git.Helper';
+
+import { Audit } from './Audit';
+import { Scan } from './Scan';
+import { Hook } from './Hook';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function run() {
@@ -29,18 +31,15 @@ export async function run() {
                     });
             },
             async (argv) => {
-                const scanner = new Scanner();
                 if (argv.debug) {
                     process.env.DEBUG = '1';
                 }
                 if (argv.hook) {
-                    GitHelper.getStagedChanges().then(async (files) => {
-                        await scanner.Hook(files);
+                    GetStagedChanges().then(async (files) => {
+                        await Hook(files);
                     });
                 } else {
-                    console.info(`\nBeginning scan on:`);
-                    console.info(chalk.blue.bold(`        ${argv.location}`));
-                    await scanner.Scan(argv.location);
+                    await Scan(argv.location);
                 }
             },
         )
@@ -51,7 +50,7 @@ export async function run() {
                 return yargs;
             },
             (argv) => {
-                new Auditor().Audit();
+                Audit();
             },
         )
         .strict()

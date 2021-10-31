@@ -1,6 +1,7 @@
 import { Repository, Diff } from 'nodegit';
+
 export default class GitHelper {
-    static async getStagedChanges(): Promise<string[]> {
+    async GetStagedChanges(): Promise<string[]> {
         const repo = await Repository.open(process.cwd());
         const head = await repo.getHeadCommit();
         const tree = await head.getTree();

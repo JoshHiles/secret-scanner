@@ -1,6 +1,6 @@
-import IPlugin from '../models/IPlugin';
+import Plugin from '../types/Plugin';
 
-export default class Slack implements IPlugin {
+export default class Slack implements Plugin {
     Name = 'Slack';
     // Access Token (xoxp-XXXXXXXXXXX-XXXXXXXXXXXXX)
     // Access Token (xoxp-XXXXXXXX-XXXXXXXX-XXXXX)

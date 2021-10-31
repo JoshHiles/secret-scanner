@@ -1,5 +1,5 @@
-import { FileType } from '../models/filetype.enum';
-import IPlugin, { ExampleMatchType } from '../models/IPlugin';
+import { FileType } from '../types/FileType.enum';
+import Plugin, { ExampleMatchType } from '../types/Plugin';
 
 const Denylist = [
     'api_?key',
@@ -102,7 +102,7 @@ const FollowedByQuotesAndSemicolonRegex = new RegExp(
     'ig',
 );
 
-export default class Keyword implements IPlugin {
+export default class Keyword implements Plugin {
     Name = 'Keyword';
     Regexes: RegExp[] = [];
     ExampleMatches: ExampleMatchType = {
