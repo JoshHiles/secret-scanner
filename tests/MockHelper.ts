@@ -5,10 +5,12 @@ import ConfigurationHelper from '../src/helpers/Configuration.Helper';
 import PluginHelper from '../src/helpers/Plugin.Helper';
 import Configuration from '../src/types/Configuration';
 import Runner from '../src/Runner';
-import Baseline, { Results } from '../src/types/Basline';
+import Baseline, { Results } from '../src/types/Baseline';
 import LoggingHelper from '../src/helpers/Logging.Helper';
 import FileHelper from '../src/helpers/File.Helper';
 import ResultHelper from '../src/helpers/Result.Helper';
+import { FileType } from '../src/types/FileType.enum';
+import Plugin, { ExampleMatchType } from '../src/types/Plugin';
 
 export default class MockHelper {
     SetupMockLoggingHelper(): { instance: LoggingHelper; mock: LoggingHelper } {
@@ -47,12 +49,43 @@ export default class MockHelper {
     SetupMockPluginHelper(testPlugins: string[]): PluginHelper {
         const mocked: PluginHelper = mock(PluginHelper);
         when(mocked.LoadPlugins).thenReturn(() => testPlugins);
+
+        const exampleMatches: ExampleMatchType = {
+            0: [''],
+            1: [''],
+            2: [''],
+            3: [''],
+            4: [''],
+            5: [''],
+            6: [''],
+            7: [''],
+            8: [''],
+            9: [''],
+            10: [''],
+            11: [''],
+            12: [''],
+            13: [''],
+            14: [''],
+            15: [''],
+            16: [''],
+            17: [''],
+            18: [''],
+        };
+        const testPlugin: Plugin = {
+            Name: 'test',
+            Regexes: [new RegExp('hello', 'g')],
+            ExampleMatches: exampleMatches,
+        };
+
+        when(mocked.InitialisePlugin).thenReturn(() => Promise.resolve(testPlugin));
+
         return instance(mocked);
     }
 
     SetupMockFileHelper(): FileHelper {
         const mocked: FileHelper = mock(FileHelper);
         when(mocked.GetFiles).thenReturn(() => ['file1.md']);
+        when(mocked.DetermineFileType).thenReturn(() => FileType.JAVASCRIPT);
         return instance(mocked);
     }
 

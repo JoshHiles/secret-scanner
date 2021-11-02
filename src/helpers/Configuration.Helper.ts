@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { cosmiconfigSync } from 'cosmiconfig';
 import Configuration from '../types/Configuration';
 

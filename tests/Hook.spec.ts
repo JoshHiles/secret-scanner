@@ -1,5 +1,5 @@
 import Hook from '../src/Hook';
-import Baseline, { Results } from '../src/types/Basline';
+import Baseline, { Results } from '../src/types/Baseline';
 import Configuration from '../src/types/Configuration';
 
 import { DateTime } from 'luxon';

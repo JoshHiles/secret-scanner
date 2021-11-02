@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { StopWatch } from 'stopwatch-node';
 import { Duration } from 'luxon';
 
-import Baseline from './types/Basline';
+import Baseline from './types/Baseline';
 
 import ConfigurationHelper from './helpers/Configuration.Helper';
 import BaselineHelper from './helpers/Baseline.Helper';

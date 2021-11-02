@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import LoggingHelper from '../../src/helpers/Logging.Helper';
-import { Results } from '../../src/types/Basline';
+import { Results } from '../../src/types/Baseline';
 
 describe('Logging Helper', () => {
     test('LogNoSecretsFound', () => {

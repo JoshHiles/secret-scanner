@@ -1,4 +1,4 @@
-import Baseline, { Results } from '../types/Basline';
+import Baseline, { Results } from '../types/Baseline';
 
 export default class ResultHelper {
     RemoveNonSecretResultsMatchedInBaseline(resultsArray: Results, baseline: Baseline): Results {

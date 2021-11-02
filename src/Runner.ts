@@ -3,7 +3,7 @@ import { createInterface } from 'readline';
 import { createReadStream } from 'fs';
 
 import Plugin from './types/Plugin';
-import { Result, Results } from './types/Basline';
+import { Result, Results } from './types/Baseline';
 import PluginHelper from './helpers/Plugin.Helper';
 import Configuration from './types/Configuration';
 
@@ -50,7 +50,7 @@ export default class Runner {
         configuration.exclude.lines.forEach((lineExcludeRegex: string) => {
             const lineToExcludeMatches = line.matchAll(new RegExp(lineExcludeRegex, 'g'));
             for (const lineToExcludeMatch of lineToExcludeMatches) {
-                if (lineToExcludeMatch.length === 0) {
+                if (lineToExcludeMatch.length > 0) {
                     needsIgnoring = true;
                 }
             }

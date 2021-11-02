@@ -15,7 +15,6 @@ export default class PluginHelper {
 
     LoadPlugins(configuration: Configuration): string[] {
         let plugins = readdirSync(path.resolve(__dirname, '../', 'plugins'));
-        console.log(plugins);
 
         if (configuration.disable_plugins.length > 0) {
             plugins = plugins.filter(function (plugin) {
