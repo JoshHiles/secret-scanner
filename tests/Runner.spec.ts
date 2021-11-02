@@ -1,17 +1,13 @@
-// import { readdirSync } from 'fs';
-// import path, { parse } from 'path';
 import Configuration from '../src/types/Configuration';
 
 import Runner from '../src/Runner';
 import MockHelper from './MockHelper';
 
-import path, { parse } from 'path';
-import fs, { createReadStream, readdirSync } from 'fs';
+import path from 'path';
+import fs, { createReadStream } from 'fs';
 import readline, { createInterface } from 'readline';
 import { Result } from '../src/types/Baseline';
 import Plugin from '../src/types/Plugin';
-
-// jest.mock('readline');
 
 describe('Runner', () => {
     test('Run', async () => {
