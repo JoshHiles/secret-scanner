@@ -2,7 +2,7 @@
 import yargs, { Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import GitHelper from './helpers/Git.helper';
+import GitHelper from './helpers/Git.Helper';
 import Audit from './Audit';
 import Scan from './Scan';
 import Hook from './Hook';
