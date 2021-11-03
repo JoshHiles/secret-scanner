@@ -1,10 +1,10 @@
-import BaselineHelper from './helpers/Baseline.Helper';
-import ConfigurationHelper from './helpers/Configuration.Helper';
-import FileHelper from './helpers/File.Helper';
-import LoggingHelper from './helpers/Logging.Helper';
-import PluginHelper from './helpers/Plugin.Helper';
-import ResultHelper from './helpers/Result.Helper';
-import Runner from './Runner';
+import BaselineHelper from 'helpers/Baseline.Helper';
+import ConfigurationHelper from 'helpers/Configuration.Helper';
+import FileHelper from 'helpers/File.Helper';
+import LoggingHelper from 'helpers/Logging.Helper';
+import PluginHelper from 'helpers/Plugin.Helper';
+import ResultHelper from 'helpers/Result.Helper';
+import Runner from 'Runner';
 
 export default class Hook {
     LoggingHelper: LoggingHelper;
