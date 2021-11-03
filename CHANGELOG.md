@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/JoshHiles/secret-scanner/compare/v2.0.0...v2.0.1) (2021-11-03)
+
+
+### Bug Fixes
+
+* **dist:** Removal of dist for rebuild by release ([8daca11](https://github.com/JoshHiles/secret-scanner/commit/8daca11848b1b7f476d7e6567ef690e42748c1e8))
+
 # [2.0.0](https://github.com/JoshHiles/secret-scanner/compare/v1.0.3...v2.0.0) (2021-11-03)
 
 
