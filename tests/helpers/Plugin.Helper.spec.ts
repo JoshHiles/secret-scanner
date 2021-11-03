@@ -5,7 +5,7 @@ import MockHelper from '../MockHelper';
 jest.mock('fs');
 import { readdirSync } from 'fs';
 
-import PluginHelper from '../../src/helpers/Plugin.helper';
+import PluginHelper from '../../src/helpers/Plugin.Helper';
 import Configuration from '../../src/types/Configuration';
 import chalk from 'chalk';
 

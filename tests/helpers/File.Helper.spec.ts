@@ -1,6 +1,6 @@
 import mock from 'mock-fs';
 
-import FileHelper from '../../src/helpers/File.helper';
+import FileHelper from '../../src/helpers/File.Helper';
 import Configuration from '../../src/types/Configuration';
 import { FileType } from '../../src/types/FileType.enum';
 

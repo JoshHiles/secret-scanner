@@ -10,8 +10,7 @@
         "types": ["node", "jest", "inquirer", "clear", "luxon", "nodegit", "yargs"],
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "importHelpers": true,
-        "baseUrl": "./src"
+        "importHelpers": true
     },
     "include": ["src/**/*"]
 }
