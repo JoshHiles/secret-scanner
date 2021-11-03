@@ -1,17 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const nodegit_1 = require("nodegit");
+const tslib_1 = require("tslib");
+const util_1 = (0, tslib_1.__importDefault)(require("util"));
+const child_process_1 = require("child_process");
 class GitHelper {
-    static async getStagedChanges() {
-        const repo = await nodegit_1.Repository.open(process.cwd());
-        const head = await repo.getHeadCommit();
-        const tree = await head.getTree();
-        if (!head) {
-            return [];
+    async GetStagedChanges() {
+        const execProm = util_1.default.promisify(child_process_1.exec);
+        let files = [];
+        try {
+            const filesString = await execProm('git diff --name-only --staged');
+            files = filesString.stdout.split('\n');
+            files.pop();
         }
-        const diff = await nodegit_1.Diff.treeToIndex(repo, tree);
-        const patches = await diff.patches();
-        const files = patches.map((patch) => patch.newFile().path());
+        catch (ex) {
+            console.log(ex);
+        }
         return files;
     }
 }
