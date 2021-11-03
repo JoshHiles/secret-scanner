@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const filetype_enum_1 = require("../models/filetype.enum");
+const FileType_enum_1 = require("../types/FileType.enum");
 const Denylist = [
     'api_?key',
     'auth_?key',
@@ -90,7 +90,7 @@ class Keyword {
             18: [''],
         };
         switch (fileType) {
-            case filetype_enum_1.FileType.GO:
+            case FileType_enum_1.FileType.GO:
                 this.Regexes = [
                     FollowedByColonEqualSignsRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -98,19 +98,19 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.OBJECTIVE_C:
+            case FileType_enum_1.FileType.OBJECTIVE_C:
                 this.Regexes = [FollowedByEqualSignsOptionalBracketsOptionalAtSignQuotesRequiredRegex];
                 break;
-            case filetype_enum_1.FileType.C_SHARP:
+            case FileType_enum_1.FileType.C_SHARP:
                 this.Regexes = [FollowedByEqualSignsOptionalBracketsOptionalAtSignQuotesRequiredRegex];
                 break;
-            case filetype_enum_1.FileType.C:
+            case FileType_enum_1.FileType.C:
                 this.Regexes = [FollowedByEqualSignsOptionalBracketsOptionalAtSignQuotesRequiredRegex];
                 break;
-            case filetype_enum_1.FileType.C_PLUS_PLUS:
+            case FileType_enum_1.FileType.C_PLUS_PLUS:
                 this.Regexes = [FollowedByOptionalAssignQuotesRequiredRegex, FollowedByEqualSignsQuotesRequiredRegex];
                 break;
-            case filetype_enum_1.FileType.CLS:
+            case FileType_enum_1.FileType.CLS:
                 this.Regexes = [
                     FollowedByColonQuotesRequiredRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -118,7 +118,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.JAVA:
+            case FileType_enum_1.FileType.JAVA:
                 this.Regexes = [
                     FollowedByColonQuotesRequiredRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -126,7 +126,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.JAVASCRIPT:
+            case FileType_enum_1.FileType.JAVASCRIPT:
                 this.Regexes = [
                     FollowedByColonQuotesRequiredRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -134,7 +134,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.PYTHON:
+            case FileType_enum_1.FileType.PYTHON:
                 this.Regexes = [
                     FollowedByColonQuotesRequiredRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -142,7 +142,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.SWIFT:
+            case FileType_enum_1.FileType.SWIFT:
                 this.Regexes = [
                     FollowedByColonQuotesRequiredRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -150,7 +150,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.TERRAFORM:
+            case FileType_enum_1.FileType.TERRAFORM:
                 this.Regexes = [
                     FollowedByColonQuotesRequiredRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -158,7 +158,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.YAML:
+            case FileType_enum_1.FileType.YAML:
                 this.Regexes = [
                     FollowedByColonRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -166,7 +166,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.CONFIG:
+            case FileType_enum_1.FileType.CONFIG:
                 this.Regexes = [
                     FollowedByColonRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -174,7 +174,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.INI:
+            case FileType_enum_1.FileType.INI:
                 this.Regexes = [
                     FollowedByColonRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -182,7 +182,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.PROPERTIES:
+            case FileType_enum_1.FileType.PROPERTIES:
                 this.Regexes = [
                     FollowedByColonRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,
@@ -190,7 +190,7 @@ class Keyword {
                     FollowedByQuotesAndSemicolonRegex,
                 ];
                 break;
-            case filetype_enum_1.FileType.TOML:
+            case FileType_enum_1.FileType.TOML:
                 this.Regexes = [
                     FollowedByColonRegex,
                     PrecededByEqualComparisonSignsQuotesRequiredRegex,

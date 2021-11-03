@@ -1,18 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const crypto_1 = require("crypto");
 const readline_1 = require("readline");
 const fs_1 = require("fs");
-const Result_1 = (0, tslib_1.__importDefault)(require("./models/Result"));
-const Plugin_helper_1 = (0, tslib_1.__importDefault)(require("./helpers/Plugin.helper"));
 class Runner {
-    constructor(configuration, baseline, plugins) {
-        this.Configuration = configuration;
-        this.Baseline = baseline;
-        this.Plugins = plugins;
+    constructor(pluginHelper) {
+        this.PluginHelper = pluginHelper;
     }
-    async Run(files) {
+    async Run(files, configuration, plugins) {
         const results = {};
         for await (const file of files) {
             const filePath = file.replace(/\\/g, '/');
@@ -23,9 +18,9 @@ class Runner {
             let lineResults = [];
             let linenumber = 1;
             for await (const line of rl) {
-                if (!this.LineIsExcluded(line)) {
-                    for (const plugin of this.Plugins) {
-                        const pluginClass = await Plugin_helper_1.default.LoadPlugin(plugin, file);
+                if (!this.LineIsExcluded(line, configuration)) {
+                    for (const plugin of plugins) {
+                        const pluginClass = await this.PluginHelper.InitialisePlugin(plugin, file);
                         const runnerResults = this.RunLine(pluginClass, line, linenumber);
                         if (runnerResults.length > 0) {
                             lineResults = lineResults.concat(runnerResults);
@@ -40,12 +35,12 @@ class Runner {
         }
         return results;
     }
-    LineIsExcluded(line) {
+    LineIsExcluded(line, configuration) {
         let needsIgnoring = false;
-        this.Configuration.exclude.lines.forEach((lineExcludeRegex) => {
+        configuration.exclude.lines.forEach((lineExcludeRegex) => {
             const lineToExcludeMatches = line.matchAll(new RegExp(lineExcludeRegex, 'g'));
             for (const lineToExcludeMatch of lineToExcludeMatches) {
-                if (lineToExcludeMatch.length === 0) {
+                if (lineToExcludeMatch.length > 0) {
                     needsIgnoring = true;
                 }
             }
@@ -64,7 +59,7 @@ class Runner {
         matches.forEach((match) => {
             const type = plugin.Name;
             const hashedSecret = (0, crypto_1.createHash)('sha256').update(match[0]).digest('base64');
-            const result = new Result_1.default(type, hashedSecret, lineNumber);
+            const result = { type: type, hashed_secret: hashedSecret, line_number: lineNumber };
             results.push(result);
         });
         return results;

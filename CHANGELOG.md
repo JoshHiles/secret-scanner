@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/JoshHiles/secret-scanner/compare/v1.0.3...v2.0.0) (2021-11-03)
+
+
+* Unit testing & Rework (#28) ([9047e6e](https://github.com/JoshHiles/secret-scanner/commit/9047e6e551a5d20171626aaed7212649cc29febe)), closes [#28](https://github.com/JoshHiles/secret-scanner/issues/28) [#18](https://github.com/JoshHiles/secret-scanner/issues/18)
+
+
+### BREAKING CHANGES
+
+* * With the introduction of unit tests, a lot of code has been reworked. Any issues please raise them
+
 ## [1.0.3](https://github.com/JoshHiles/secret-scanner/compare/v1.0.2...v1.0.3) (2021-10-18)
 
 

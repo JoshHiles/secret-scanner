@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileType = void 0;
+var FileType;
+(function (FileType) {
+    FileType[FileType["CLS"] = 0] = "CLS";
+    FileType[FileType["EXAMPLE"] = 1] = "EXAMPLE";
+    FileType[FileType["GO"] = 2] = "GO";
+    FileType[FileType["JAVA"] = 3] = "JAVA";
+    FileType[FileType["JAVASCRIPT"] = 4] = "JAVASCRIPT";
+    FileType[FileType["PHP"] = 5] = "PHP";
+    FileType[FileType["OBJECTIVE_C"] = 6] = "OBJECTIVE_C";
+    FileType[FileType["PYTHON"] = 7] = "PYTHON";
+    FileType[FileType["SWIFT"] = 8] = "SWIFT";
+    FileType[FileType["TERRAFORM"] = 9] = "TERRAFORM";
+    FileType[FileType["YAML"] = 10] = "YAML";
+    FileType[FileType["C_SHARP"] = 11] = "C_SHARP";
+    FileType[FileType["C"] = 12] = "C";
+    FileType[FileType["C_PLUS_PLUS"] = 13] = "C_PLUS_PLUS";
+    FileType[FileType["CONFIG"] = 14] = "CONFIG";
+    FileType[FileType["INI"] = 15] = "INI";
+    FileType[FileType["PROPERTIES"] = 16] = "PROPERTIES";
+    FileType[FileType["TOML"] = 17] = "TOML";
+    FileType[FileType["OTHER"] = 18] = "OTHER";
+})(FileType = exports.FileType || (exports.FileType = {}));
