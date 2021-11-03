@@ -19,7 +19,7 @@
         "audit": "ts-node ./src/secret-scanner.ts audit",
         "hook": "ts-node ./src/secret-scanner.ts scan --hook",
         "clean": "rimraf ./dist/ ./exec/",
-        "build": "tsc -p .",
+        "build": "npm run clean && tsc -p .",
         "test": "jest --coverage",
         "watch": "jest --watch",
         "bundle": "tsc -p . && pkg . --out-dir ./exec/",
