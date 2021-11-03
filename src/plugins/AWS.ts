@@ -1,6 +1,6 @@
-import IPlugin from '../models/IPlugin';
+import Plugin from '../types/Plugin';
 
-export default class AWS implements IPlugin {
+export default class AWS implements Plugin {
     Name = 'AWS';
     // Access key (AKIAxxxxxxxxxxxxxxxx)
     Regexes = [new RegExp('AKIA[0-9A-Z]{16}', 'g')];

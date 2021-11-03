@@ -2,22 +2,20 @@ import chalk from 'chalk';
 import { readdirSync } from 'fs';
 import path, { parse } from 'path';
 
-import Configuration from '../Configuration';
-import IPlugin from '../models/IPlugin';
-import FileHelper from './File.helper';
+import Configuration from '../types/Configuration';
+import Plugin from '../types/Plugin';
+
+import FileHelper from './File.Helper';
 
 export default class PluginHelper {
-    Configuration: Configuration;
-
-    constructor(configuration: Configuration) {
-        this.Configuration = configuration;
+    FileHelper: FileHelper;
+    constructor(fileHelper: FileHelper) {
+        this.FileHelper = fileHelper;
     }
 
-    LoadPlugins(): string[] {
+    LoadPlugins(configuration: Configuration): string[] {
         let plugins = readdirSync(path.resolve(__dirname, '../', 'plugins'));
-        const configuration = this.Configuration;
 
-        /* istanbul ignore else */
         if (configuration.disable_plugins.length > 0) {
             plugins = plugins.filter(function (plugin) {
                 return !configuration.disable_plugins.includes(parse(plugin).name);
@@ -32,10 +30,10 @@ export default class PluginHelper {
         return plugins;
     }
 
-    static async LoadPlugin(pluginName: string, file: string): Promise<IPlugin> {
+    async InitialisePlugin(pluginName: string, file: string): Promise<Plugin> {
         pluginName = parse(pluginName).name;
 
         const pluginImport = await import(path.resolve(__dirname, '../', 'plugins', pluginName));
-        return new pluginImport.default(FileHelper.DetermineFileType(file));
+        return new pluginImport.default(this.FileHelper.DetermineFileType(file));
     }
 }

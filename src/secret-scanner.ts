@@ -2,13 +2,28 @@
 import yargs, { Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-import Auditor from './Auditor';
-import Scanner from './Scanner';
 import GitHelper from './helpers/Git.helper';
-import chalk from 'chalk';
+import Audit from './Audit';
+import Scan from './Scan';
+import Hook from './Hook';
+import LoggingHelper from './helpers/Logging.Helper';
+import ConfigurationHelper from './helpers/Configuration.Helper';
+import BaselineHelper from './helpers/Baseline.Helper';
+import PluginHelper from './helpers/Plugin.Helper';
+import FileHelper from './helpers/File.Helper';
+import ResultHelper from './helpers/Result.Helper';
+import Runner from './Runner';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function run() {
+    const loggingHelper = new LoggingHelper();
+    const configurationHelper = new ConfigurationHelper();
+    const baselineHelper = new BaselineHelper();
+    const fileHelper = new FileHelper();
+    const pluginHelper = new PluginHelper(fileHelper);
+    const resultHelper = new ResultHelper();
+    const runner = new Runner(pluginHelper);
+
     yargs(hideBin(process.argv))
         .command(
             'scan',
@@ -29,18 +44,32 @@ export async function run() {
                     });
             },
             async (argv) => {
-                const scanner = new Scanner();
                 if (argv.debug) {
                     process.env.DEBUG = '1';
                 }
                 if (argv.hook) {
-                    GitHelper.getStagedChanges().then(async (files) => {
-                        await scanner.Hook(files);
-                    });
+                    // const hook =
+
+                    const files = await new GitHelper().GetStagedChanges();
+                    new Hook(
+                        loggingHelper,
+                        configurationHelper,
+                        baselineHelper,
+                        pluginHelper,
+                        fileHelper,
+                        resultHelper,
+                        runner,
+                    ).Hook(files);
+                    console.log(files);
                 } else {
-                    console.info(`\nBeginning scan on:`);
-                    console.info(chalk.blue.bold(`        ${argv.location}`));
-                    await scanner.Scan(argv.location);
+                    await new Scan(
+                        loggingHelper,
+                        configurationHelper,
+                        baselineHelper,
+                        pluginHelper,
+                        fileHelper,
+                        runner,
+                    ).Scan(argv.location);
                 }
             },
         )
@@ -50,8 +79,8 @@ export async function run() {
             (yargs: Argv) => {
                 return yargs;
             },
-            (argv) => {
-                new Auditor().Audit();
+            () => {
+                new Audit(baselineHelper, fileHelper).Audit();
             },
         )
         .strict()

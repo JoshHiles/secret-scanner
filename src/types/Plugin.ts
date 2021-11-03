@@ -1,6 +1,6 @@
-import { FileType } from './filetype.enum';
+import { FileType } from './FileType.enum';
 
-export default interface IPlugin {
+export default interface Plugin {
     Name: string;
     Regexes: RegExp[];
     ExampleMatches: ExampleMatchType | string[];

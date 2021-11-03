@@ -1,27 +1,14 @@
 import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 import { DateTime } from 'luxon';
-import Results from './models/Results';
+import Baseline from '../types/Baseline';
 
 chalk.level = 3;
 
-export default class Baseline {
-    generated_at: string;
-    plugins: string[];
-    filters: string[];
-    results: Results;
+export default class BaselineHelper {
+    baselineFile = 'secret-scanner.baseline.json';
 
-    private static baselineFile = 'secret-scanner.baseline.json';
-
-    constructor() {
-        const baseline = Baseline.GetBaselineFile();
-        this.generated_at = baseline.generated_at;
-        this.plugins = baseline.plugins;
-        this.filters = baseline.filters;
-        this.results = baseline.results;
-    }
-
-    private static GetBaselineFile(): Baseline {
+    LoadBaseline(): Baseline {
         try {
             const baselineRAW = readFileSync(`${process.cwd()}/${this.baselineFile}`);
             const baseline: Baseline = JSON.parse(baselineRAW.toString());
@@ -32,7 +19,7 @@ export default class Baseline {
         }
     }
 
-    private static CreateBaselineFile(): Baseline {
+    private CreateBaselineFile(): Baseline {
         const baseline: Baseline = {
             generated_at: DateTime.now().toFormat('dd/LL/yyyy hh:mm a ZZZZ'),
             plugins: [],
@@ -44,17 +31,17 @@ export default class Baseline {
         return baseline;
     }
 
-    static SaveBaselineToFile(baseline: Baseline): void {
+    SaveBaselineToFile(baseline: Baseline) {
         try {
-            writeFileSync(`${process.cwd()}/${Baseline.baselineFile}`, JSON.stringify(baseline, null, 2));
-            console.info(chalk`\nSaved baseline: {green ${process.cwd()}/${Baseline.baselineFile}}`);
+            writeFileSync(`${process.cwd()}/${this.baselineFile}`, JSON.stringify(baseline, null, 2));
+            console.info(chalk`\nSaved baseline: {green ${process.cwd()}/${this.baselineFile}}`);
         } catch (error) {
             console.error(chalk.red(`Failed to save baseline file`));
             console.error(chalk.red(error));
         }
     }
 
-    static SetGeneratedAt(baseline: Baseline): Baseline {
+    SetGeneratedAt(baseline: Baseline): Baseline {
         baseline.generated_at = DateTime.now().toFormat('dd/LL/yyyy hh:mm a ZZZZ');
         return baseline;
     }
