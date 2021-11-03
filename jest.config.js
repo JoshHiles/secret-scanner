@@ -1,6 +1,6 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-    globals: { 'ts-jest': { tsconfig: './tsconfig.json' } },
+    roots: ['./src'],
     preset: 'ts-jest',
     testEnvironment: 'node',
     coverageThreshold: {
@@ -11,5 +11,4 @@ module.exports = {
             statements: 100,
         },
     },
-    modulePaths: ['src'],
 };

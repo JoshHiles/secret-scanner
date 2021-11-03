@@ -17,11 +17,5 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Upload arti
-              uses: actions/upload-artifact@v2
-              with:
-                  name: arti
-                  path: ./
-
             - name: Unit Test
               run: npm run test
