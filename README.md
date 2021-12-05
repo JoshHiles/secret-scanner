@@ -1,6 +1,8 @@
 # Secret Scanner
 
-> Please be aware, this is still in a very early state, testing has been done but does require more extensive testing and rewrites to the testing code.
+![Coveralls](https://img.shields.io/coveralls/github/JoshHiles/secret-scanner?style=for-the-badge)
+![npm](https://img.shields.io/npm/v/secret-scanner?style=for-the-badge)
+[![GitHub license](https://img.shields.io/github/license/JoshHiles/secret-scanner?style=for-the-badge)](https://github.com/JoshHiles/secret-scanner/blob/main/LICENSE)
 
 ## About
 
@@ -13,10 +15,17 @@ Based off the well established [Yelp detect-secrets](https://github.com/Yelp/det
 
 ### Sections
 
--   [Installation](#installation)
--   [Quickstart](#quickstart)
--   [Configuration](#configuration)
--   [CLI](#cli)
+- [Secret Scanner](#secret-scanner)
+  - [About](#about)
+    - [Sections](#sections)
+  - [Installation](#installation)
+  - [Quickstart](#quickstart)
+  - [Configuration](#configuration)
+    - [Disable Plugins](#disable-plugins)
+    - [Exclude Lines](#exclude-lines)
+    - [Exclude Files](#exclude-files)
+    - [Exclude Secrets](#exclude-secrets)
+  - [CLI](#cli)
 
 ---
 
