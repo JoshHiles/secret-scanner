@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { StopWatch } from 'stopwatch-node';
 import { Duration } from 'luxon';
 
-import Baseline from './types/Baseline';
+import Baseline from './interfaces/Baseline';
 
 import ConfigurationHelper from './helpers/Configuration.Helper';
 import BaselineHelper from './helpers/Baseline.Helper';
@@ -44,7 +44,8 @@ export default class Scan {
         this.LoggingHelper.LogBeginScan(directory);
         const configuration = this.ConfigurationHelper.LoadConfiguration();
         let baseline = this.BaselineHelper.LoadBaseline();
-        const plugins = this.PluginHelper.LoadPlugins(configuration);
+        // const plugins = await this.PluginHelper.LoadPlugins(configuration);
+        const plugins = await this.PluginHelper.LoadPlugins(configuration);
 
         const files = this.FileHelper.GetFiles([directory], configuration);
 
@@ -54,7 +55,7 @@ export default class Scan {
 
         const pluginsNormalised: string[] = [];
         plugins.forEach((plugin) => {
-            pluginsNormalised.push(parse(plugin).name);
+            pluginsNormalised.push(plugin.Name);
         });
 
         baseline.plugins = pluginsNormalised;

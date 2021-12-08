@@ -1,4 +1,4 @@
-import Plugin from '../types/Plugin';
+import Plugin from '../interfaces/Plugin';
 
 export default class Slack implements Plugin {
     Name = 'Slack';

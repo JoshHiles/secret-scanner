@@ -1,8 +1,8 @@
 import mock from 'mock-fs';
 
 import FileHelper from '../../src/helpers/File.Helper';
-import Configuration from '../../src/types/Configuration';
-import { FileType } from '../../src/types/FileType.enum';
+import Configuration from '../../src/interfaces/Configuration';
+import { FileType } from '../../src/interfaces/FileType.enum';
 
 describe('File Helper', () => {
     afterEach(() => {
@@ -20,6 +20,7 @@ describe('File Helper', () => {
         });
 
         const testConfig: Configuration = {
+            plugins: [],
             disable_plugins: [],
             exclude: { files: [], lines: [], secrets: [] },
         };

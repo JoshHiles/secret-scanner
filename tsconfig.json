@@ -10,7 +10,9 @@
         "types": ["node", "jest", "inquirer", "clear", "luxon", "nodegit", "yargs"],
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "importHelpers": true
+        "importHelpers": true,
+        "declaration": true,
+        "declarationDir": "./types"
     },
     "include": ["src/**/*"]
 }

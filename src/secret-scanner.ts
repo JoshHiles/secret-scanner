@@ -22,7 +22,7 @@ export async function run() {
     const fileHelper = new FileHelper();
     const pluginHelper = new PluginHelper(fileHelper);
     const resultHelper = new ResultHelper();
-    const runner = new Runner(pluginHelper);
+    const runner = new Runner(pluginHelper, fileHelper);
 
     yargs(hideBin(process.argv))
         .command(
@@ -48,8 +48,6 @@ export async function run() {
                     process.env.DEBUG = '1';
                 }
                 if (argv.hook) {
-                    // const hook =
-
                     const files = await new GitHelper().GetStagedChanges();
                     new Hook(
                         loggingHelper,
@@ -60,7 +58,6 @@ export async function run() {
                         resultHelper,
                         runner,
                     ).Hook(files);
-                    console.log(files);
                 } else {
                     await new Scan(
                         loggingHelper,
