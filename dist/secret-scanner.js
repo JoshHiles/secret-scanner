@@ -24,9 +24,9 @@ async function run() {
     const fileHelper = new File_Helper_1.default();
     const pluginHelper = new Plugin_Helper_1.default(fileHelper);
     const resultHelper = new Result_Helper_1.default();
-    const runner = new Runner_1.default(pluginHelper);
+    const runner = new Runner_1.default(pluginHelper, fileHelper);
     (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
-        .command('scan', 'Scans directories / scans committed files', (yargs) => {
+        .command('scan', 'Scans directories / committed files', (yargs) => {
         return yargs
             .option('hook', {
             alias: 'h',
@@ -45,10 +45,8 @@ async function run() {
             process.env.DEBUG = '1';
         }
         if (argv.hook) {
-            // const hook =
             const files = await new Git_Helper_1.default().GetStagedChanges();
             new Hook_1.default(loggingHelper, configurationHelper, baselineHelper, pluginHelper, fileHelper, resultHelper, runner).Hook(files);
-            console.log(files);
         }
         else {
             await new Scan_1.default(loggingHelper, configurationHelper, baselineHelper, pluginHelper, fileHelper, runner).Scan(argv.location);

@@ -5,7 +5,7 @@ const fast_glob_1 = (0, tslib_1.__importDefault)(require("fast-glob"));
 const fs_1 = require("fs");
 const readline_1 = require("readline");
 const path_1 = require("path");
-const FileType_enum_1 = require("../types/FileType.enum");
+const FileType_enum_1 = require("../interfaces/FileType.enum");
 class FileHelper {
     constructor() {
         this.defaultIgnoreFiles = [

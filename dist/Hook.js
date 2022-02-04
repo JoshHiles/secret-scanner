@@ -13,7 +13,7 @@ class Hook {
     async Hook(files) {
         const configuration = this.ConfigurationHelper.LoadConfiguration();
         const baseline = this.BaselineHelper.LoadBaseline();
-        const plugins = this.PluginHelper.LoadPlugins(configuration);
+        const plugins = await this.PluginHelper.LoadPlugins(configuration);
         files = this.FileHelper.GetFiles(files, configuration);
         let resultsArray = await this.Runner.Run(files, configuration, plugins);
         if (Object.keys(resultsArray).length === 0) {

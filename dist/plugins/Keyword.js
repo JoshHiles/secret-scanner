@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const FileType_enum_1 = require("../types/FileType.enum");
+const FileType_enum_1 = require("../interfaces/FileType.enum");
 const Denylist = [
     'api_?key',
     'auth_?key',
@@ -65,7 +65,7 @@ const FollowedByEqualSignsQuotesRequiredRegex = new RegExp(`${DenylistRegex}(${C
 // e.g. private_key "something";
 const FollowedByQuotesAndSemicolonRegex = new RegExp(`${DenylistRegex}${OptionalNonWhitespace}${OptionalWhitespace}(${Quote})(${Secret})(\\2);`, 'ig');
 class Keyword {
-    constructor(fileType) {
+    constructor() {
         this.Name = 'Keyword';
         this.Regexes = [];
         this.ExampleMatches = {
@@ -89,6 +89,8 @@ class Keyword {
             17: [''],
             18: [''],
         };
+    }
+    Initialise(fileType) {
         switch (fileType) {
             case FileType_enum_1.FileType.GO:
                 this.Regexes = [

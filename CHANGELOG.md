@@ -1,3 +1,10 @@
+# [2.1.0-alpha.1](https://github.com/JoshHiles/secret-scanner/compare/v2.0.1...v2.1.0-alpha.1) (2022-02-04)
+
+
+### Features
+
+* **plugins:** Add ability to use custom plugins ([#64](https://github.com/JoshHiles/secret-scanner/issues/64)) ([0a1b2e3](https://github.com/JoshHiles/secret-scanner/commit/0a1b2e340b533ac5dc25992ec402d56141dfbae1))
+
 ## [2.0.1](https://github.com/JoshHiles/secret-scanner/compare/v2.0.0...v2.0.1) (2021-11-03)
 
 

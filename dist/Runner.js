@@ -4,8 +4,9 @@ const crypto_1 = require("crypto");
 const readline_1 = require("readline");
 const fs_1 = require("fs");
 class Runner {
-    constructor(pluginHelper) {
+    constructor(pluginHelper, fileHelper) {
         this.PluginHelper = pluginHelper;
+        this.FileHelper = fileHelper;
     }
     async Run(files, configuration, plugins) {
         const results = {};
@@ -20,8 +21,10 @@ class Runner {
             for await (const line of rl) {
                 if (!this.LineIsExcluded(line, configuration)) {
                     for (const plugin of plugins) {
-                        const pluginClass = await this.PluginHelper.InitialisePlugin(plugin, file);
-                        const runnerResults = this.RunLine(pluginClass, line, linenumber);
+                        if (typeof plugin.Initialise === 'function') {
+                            plugin.Initialise(this.FileHelper.DetermineFileType(file));
+                        }
+                        const runnerResults = this.RunLine(plugin, line, linenumber);
                         if (runnerResults.length > 0) {
                             lineResults = lineResults.concat(runnerResults);
                         }

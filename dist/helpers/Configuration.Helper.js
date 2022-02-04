@@ -7,6 +7,7 @@ class ConfigurationHelper {
         const explorerSync = (0, cosmiconfig_1.cosmiconfigSync)('secret-scanner');
         const comsiConfig = explorerSync.search();
         const configuration = {
+            plugins: [],
             disable_plugins: [],
             exclude: {
                 lines: [],
@@ -15,6 +16,7 @@ class ConfigurationHelper {
             },
         };
         if (comsiConfig != undefined) {
+            configuration.plugins = comsiConfig.config.plugins;
             configuration.disable_plugins = comsiConfig.config.disable_plugins;
             configuration.exclude = {
                 lines: comsiConfig.config.exclude.lines,

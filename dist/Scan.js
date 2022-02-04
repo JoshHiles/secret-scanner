@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
-const path_1 = require("path");
 const chalk_1 = (0, tslib_1.__importDefault)(require("chalk"));
 chalk_1.default.level = 3;
 class Scan {
@@ -17,13 +16,14 @@ class Scan {
         this.LoggingHelper.LogBeginScan(directory);
         const configuration = this.ConfigurationHelper.LoadConfiguration();
         let baseline = this.BaselineHelper.LoadBaseline();
-        const plugins = this.PluginHelper.LoadPlugins(configuration);
+        // const plugins = await this.PluginHelper.LoadPlugins(configuration);
+        const plugins = await this.PluginHelper.LoadPlugins(configuration);
         const files = this.FileHelper.GetFiles([directory], configuration);
         baseline.results = await this.Runner.Run(files, configuration, plugins);
         baseline = this.BaselineHelper.SetGeneratedAt(baseline);
         const pluginsNormalised = [];
         plugins.forEach((plugin) => {
-            pluginsNormalised.push((0, path_1.parse)(plugin).name);
+            pluginsNormalised.push(plugin.Name);
         });
         baseline.plugins = pluginsNormalised;
         this.BaselineHelper.SaveBaselineToFile(baseline);
