@@ -1,5 +1,5 @@
 import ResultHelper from '../../src/helpers/Result.Helper';
-import Baseline, { Results } from '../../src/types/Baseline';
+import Baseline, { Results } from '../../src/interfaces/Baseline';
 
 describe('Result Helper', () => {
     test('RemoveNonSecretResultsMatchedInBaseline', () => {

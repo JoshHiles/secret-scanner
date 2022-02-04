@@ -3,8 +3,8 @@ import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { extname } from 'path';
 
-import Configuration from '../types/Configuration';
-import { FileType } from '../types/FileType.enum';
+import Configuration from '../interfaces/Configuration';
+import { FileType } from '../interfaces/FileType.enum';
 
 export default class FileHelper {
     defaultIgnoreFiles = [
