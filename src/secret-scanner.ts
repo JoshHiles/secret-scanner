@@ -27,7 +27,7 @@ export async function run() {
     yargs(hideBin(process.argv))
         .command(
             'scan',
-            'Scans directories / scans committed files',
+            'Scans directories / committed files',
             (yargs: Argv) => {
                 return yargs
                     .option('hook', {
