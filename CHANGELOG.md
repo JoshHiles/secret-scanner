@@ -1,3 +1,10 @@
+# [2.1.0-alpha.2](https://github.com/JoshHiles/secret-scanner/compare/v2.1.0-alpha.1...v2.1.0-alpha.2) (2022-02-05)
+
+
+### Bug Fixes
+
+* **types:** Add types to dist ([8c7164f](https://github.com/JoshHiles/secret-scanner/commit/8c7164f86c739d137ed24d8c2bcf5f1c026016be))
+
 # [2.1.0-alpha.1](https://github.com/JoshHiles/secret-scanner/compare/v2.0.1...v2.1.0-alpha.1) (2022-02-04)
 
 
