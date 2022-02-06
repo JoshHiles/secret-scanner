@@ -1,0 +1,11 @@
+[
+    "**/node_modules",
+    "**/package-lock.json",
+    "**/yarn.lock",
+    "**/detect-secret-baseline.json",
+    "**/.secret-scannerrc",
+    "**/.nyc_output",
+    "**/.git",
+    "**/.yarn",
+    "**/.pnp.cjs"
+]
