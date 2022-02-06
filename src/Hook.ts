@@ -37,7 +37,7 @@ export default class Hook {
     async Hook(files: string[]): Promise<void> {
         const configuration = this.ConfigurationHelper.LoadConfiguration();
         const baseline = this.BaselineHelper.LoadBaseline();
-        const plugins = this.PluginHelper.LoadPlugins(configuration);
+        const plugins = await this.PluginHelper.LoadPlugins(configuration);
 
         files = this.FileHelper.GetFiles(files, configuration);
         let resultsArray = await this.Runner.Run(files, configuration, plugins);

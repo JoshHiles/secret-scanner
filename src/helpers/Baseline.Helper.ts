@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { readFileSync, writeFileSync } from 'fs';
 import { DateTime } from 'luxon';
-import Baseline from '../types/Baseline';
+import Baseline from '../interfaces/Baseline';
 
 chalk.level = 3;
 

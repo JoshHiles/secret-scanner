@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 
 import BaselineHelper from '../../src/helpers/Baseline.Helper';
 
-import Baseline from '../../src/types/Baseline';
+import Baseline from '../../src/interfaces/Baseline';
 
 describe('Baseline Helper', () => {
     const baselineFile = 'secret-scanner.baseline.json';

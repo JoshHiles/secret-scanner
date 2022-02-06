@@ -1,5 +1,5 @@
-import { FileType } from '../types/FileType.enum';
-import Plugin, { ExampleMatchType } from '../types/Plugin';
+import { FileType } from '../interfaces/FileType.enum';
+import Plugin, { ExampleMatchType } from '../interfaces/Plugin';
 
 const Denylist = [
     'api_?key',
@@ -127,7 +127,7 @@ export default class Keyword implements Plugin {
         18: [''],
     };
 
-    constructor(fileType: FileType) {
+    Initialise(fileType: FileType): void {
         switch (fileType) {
             case FileType.GO:
                 this.Regexes = [

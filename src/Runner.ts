@@ -2,19 +2,22 @@ import { createHash } from 'crypto';
 import { createInterface } from 'readline';
 import { createReadStream } from 'fs';
 
-import Plugin from './types/Plugin';
-import { Result, Results } from './types/Baseline';
+import Plugin from './interfaces/Plugin';
+import { Result, Results } from './interfaces/Baseline';
 import PluginHelper from './helpers/Plugin.Helper';
-import Configuration from './types/Configuration';
+import Configuration from './interfaces/Configuration';
+import FileHelper from './helpers/File.Helper';
 
 export default class Runner {
     PluginHelper: PluginHelper;
+    FileHelper: FileHelper;
 
-    constructor(pluginHelper: PluginHelper) {
+    constructor(pluginHelper: PluginHelper, fileHelper: FileHelper) {
         this.PluginHelper = pluginHelper;
+        this.FileHelper = fileHelper;
     }
 
-    async Run(files: string[], configuration: Configuration, plugins: string[]): Promise<Results> {
+    async Run(files: string[], configuration: Configuration, plugins: Plugin[]): Promise<Results> {
         const results: Results = {};
         for await (const file of files) {
             const filePath = file.replace(/\\/g, '/');
@@ -28,8 +31,10 @@ export default class Runner {
             for await (const line of rl) {
                 if (!this.LineIsExcluded(line, configuration)) {
                     for (const plugin of plugins) {
-                        const pluginClass = await this.PluginHelper.InitialisePlugin(plugin, file);
-                        const runnerResults = this.RunLine(pluginClass, line, linenumber);
+                        if (typeof plugin.Initialise === 'function') {
+                            plugin.Initialise(this.FileHelper.DetermineFileType(file));
+                        }
+                        const runnerResults = this.RunLine(plugin, line, linenumber);
                         if (runnerResults.length > 0) {
                             lineResults = lineResults.concat(runnerResults);
                         }

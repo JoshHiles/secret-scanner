@@ -3,14 +3,14 @@ import { instance, mock, when } from 'ts-mockito';
 import BaselineHelper from '../src/helpers/Baseline.Helper';
 import ConfigurationHelper from '../src/helpers/Configuration.Helper';
 import PluginHelper from '../src/helpers/Plugin.Helper';
-import Configuration from '../src/types/Configuration';
+import Configuration from '../src/interfaces/Configuration';
 import Runner from '../src/Runner';
-import Baseline, { Results } from '../src/types/Baseline';
+import Baseline, { Results } from '../src/interfaces/Baseline';
 import LoggingHelper from '../src/helpers/Logging.Helper';
 import FileHelper from '../src/helpers/File.Helper';
 import ResultHelper from '../src/helpers/Result.Helper';
-import { FileType } from '../src/types/FileType.enum';
-import Plugin, { ExampleMatchType } from '../src/types/Plugin';
+import { FileType } from '../src/interfaces/FileType.enum';
+import Plugin from '../src/interfaces/Plugin';
 
 export default class MockHelper {
     SetupMockLoggingHelper(): { instance: LoggingHelper; mock: LoggingHelper } {
@@ -46,38 +46,17 @@ export default class MockHelper {
         return instance(mocked);
     }
 
-    SetupMockPluginHelper(testPlugins: string[]): PluginHelper {
+    SetupMockPluginHelper(): PluginHelper {
         const mocked: PluginHelper = mock(PluginHelper);
-        when(mocked.LoadPlugins).thenReturn(() => testPlugins);
 
-        const exampleMatches: ExampleMatchType = {
-            0: [''],
-            1: [''],
-            2: [''],
-            3: [''],
-            4: [''],
-            5: [''],
-            6: [''],
-            7: [''],
-            8: [''],
-            9: [''],
-            10: [''],
-            11: [''],
-            12: [''],
-            13: [''],
-            14: [''],
-            15: [''],
-            16: [''],
-            17: [''],
-            18: [''],
-        };
         const testPlugin: Plugin = {
             Name: 'test',
             Regexes: [new RegExp('hello', 'g')],
-            ExampleMatches: exampleMatches,
+            ExampleMatches: ['example_match'],
         };
+        const testPlugins: Plugin[] = [testPlugin];
 
-        when(mocked.InitialisePlugin).thenReturn(() => Promise.resolve(testPlugin));
+        when(mocked.LoadPlugins).thenReturn(() => Promise.resolve(testPlugins));
 
         return instance(mocked);
     }

@@ -1,6 +1,6 @@
 import Hook from '../src/Hook';
-import Baseline, { Results } from '../src/types/Baseline';
-import Configuration from '../src/types/Configuration';
+import Baseline, { Results } from '../src/interfaces/Baseline';
+import Configuration from '../src/interfaces/Configuration';
 
 import { DateTime } from 'luxon';
 import MockHelper from './MockHelper';
@@ -8,6 +8,7 @@ import { spy, verify } from 'ts-mockito';
 
 describe('Hook', () => {
     const testConfiguration: Configuration = {
+        plugins: [],
         disable_plugins: [],
         exclude: {
             files: [],
@@ -34,7 +35,7 @@ describe('Hook', () => {
         const mockLoggingHelper = mockHelper.SetupMockLoggingHelper();
         const mockConfigurationHelper = mockHelper.SetupMockConfigurationHelper(testConfiguration);
         const mockBaselineHelper = mockHelper.SetupMockBaselineHelper(testBaseline, testBaselineWithResults);
-        const mockPluginHelper = mockHelper.SetupMockPluginHelper(['plugin1.ts']);
+        const mockPluginHelper = mockHelper.SetupMockPluginHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
         const mockResultHelper = mockHelper.SetupResultHelper(testResults);
         const mockRunner = mockHelper.SetupMockRunner(testResults);
@@ -63,7 +64,7 @@ describe('Hook', () => {
         const mockLoggingHelper = mockHelper.SetupMockLoggingHelper();
         const mockConfigurationHelper = mockHelper.SetupMockConfigurationHelper(testConfiguration);
         const mockBaselineHelper = mockHelper.SetupMockBaselineHelper(testBaseline, testBaselineWithResults);
-        const mockPluginHelper = mockHelper.SetupMockPluginHelper(['plugin1.ts']);
+        const mockPluginHelper = mockHelper.SetupMockPluginHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
         const mockResultHelper = mockHelper.SetupResultHelper(testResults);
         const mockRunner = mockHelper.SetupMockRunner(oneTestResult);
@@ -92,7 +93,7 @@ describe('Hook', () => {
         const mockLoggingHelper = mockHelper.SetupMockLoggingHelper();
         const mockConfigurationHelper = mockHelper.SetupMockConfigurationHelper(testConfiguration);
         const mockBaselineHelper = mockHelper.SetupMockBaselineHelper(testBaseline, testBaselineWithResults);
-        const mockPluginHelper = mockHelper.SetupMockPluginHelper(['plugin1.ts']);
+        const mockPluginHelper = mockHelper.SetupMockPluginHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
         const mockResultHelper = mockHelper.SetupResultHelper(oneTestResult);
         const mockRunner = mockHelper.SetupMockRunner(oneTestResult);
