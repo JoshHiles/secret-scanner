@@ -1,15 +1,10 @@
-import { mocked } from 'ts-jest/utils';
 import MockHelper from '../MockHelper';
-
-jest.mock('fs');
-import { readdirSync } from 'fs';
+import mock from 'mock-fs';
 
 import PluginHelper from '../../src/helpers/Plugin.Helper';
 import Configuration from '../../src/interfaces/Configuration';
 import Plugin from '../../src/interfaces/Plugin';
 import chalk from 'chalk';
-
-import path from 'path';
 
 describe('Plugin Helper', () => {
     test('LoadPlugins', async () => {
@@ -26,9 +21,15 @@ describe('Plugin Helper', () => {
         const mockHelper = new MockHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
 
-        mocked(readdirSync as jest.Mock).mockImplementation(() => {
-            return ['plugin1.ts', 'plugin2.ts'];
+        mock({
+            'src/plugins': {
+                'plugin1.ts': '',
+                'plugin2.ts': '',
+            },
         });
+        // mocked(readdirSync as jest.Mock).mockImplementation(() => {
+        //     return [];
+        // });
 
         const pluginHelper = new PluginHelper(mockFileHelper);
         const testPlugin: Plugin = { Name: 'plugin1', Regexes: [], ExampleMatches: [] };
@@ -61,9 +62,15 @@ describe('Plugin Helper', () => {
         const mockHelper = new MockHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
 
-        mocked(readdirSync as jest.Mock).mockImplementation(() => {
-            return ['plugin1.ts', 'plugin2.ts'];
+        mock({
+            'src/plugins': {
+                'plugin1.ts': '',
+                'plugin2.ts': '',
+            },
         });
+        // mocked(readdirSync as jest.Mock).mockImplementation(() => {
+        //     return ['plugin1.ts', 'plugin2.ts'];
+        // });
 
         const pluginHelper = new PluginHelper(mockFileHelper);
         const testPlugin: Plugin = { Name: 'plugin1', Regexes: [], ExampleMatches: [] };
@@ -99,9 +106,15 @@ describe('Plugin Helper', () => {
         const mockHelper = new MockHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
 
-        mocked(readdirSync as jest.Mock).mockImplementation(() => {
-            return ['plugin1.ts', 'plugin2.ts'];
+        mock({
+            'src/plugins': {
+                'plugin1.ts': '',
+                'plugin2.ts': '',
+            },
         });
+        // mocked(readdirSync as jest.Mock).mockImplementation(() => {
+        //     return ['plugin1.ts', 'plugin2.ts'];
+        // });
 
         const pluginHelper = new PluginHelper(mockFileHelper);
         const testPlugin: Plugin = { Name: 'plugin1', Regexes: [], ExampleMatches: [] };
