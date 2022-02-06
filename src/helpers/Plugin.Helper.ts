@@ -1,6 +1,6 @@
 import chalk from 'chalk';
-import { readdirSync } from 'fs';
 import path, { parse } from 'path';
+import fg from 'fast-glob';
 import { tsImport } from 'ts-import';
 
 import Configuration from '../interfaces/Configuration';
@@ -15,7 +15,10 @@ export default class PluginHelper {
     }
 
     async LoadPlugins(configuration: Configuration): Promise<Plugin[]> {
-        let plugins = readdirSync(path.resolve(__dirname, '../', 'plugins'));
+        let plugins = fg.sync(`${path.resolve(__dirname, '../', 'plugins').replace(/\\/g, '/')}/**`, {
+            ignore: ['**/*.d.*'],
+            stats: false,
+        });
 
         if (configuration.plugins.length > 0) {
             for (const userPlugin of configuration.plugins) {
