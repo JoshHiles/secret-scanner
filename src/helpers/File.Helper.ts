@@ -5,25 +5,15 @@ import { extname } from 'path';
 
 import Configuration from '../interfaces/Configuration';
 import { FileType } from '../interfaces/FileType.enum';
+import DefaultIgnoreFiles from '../DefaultIgnore.json';
 
 export default class FileHelper {
-    defaultIgnoreFiles = [
-        '**/node_modules',
-        '**/package-lock.json',
-        '**/yarn.lock',
-        '**/detect-secret-baseline.json',
-        '**/.secret-scannerrc',
-        '**/.nyc_output',
-        '**/.git',
-        '**/.yarn',
-        '**/.pnp.cjs',
-    ];
-
     GetFiles(filesAndDirectories: string[], configuration: Configuration): string[] {
         const arrayOfFiles = fg.sync(filesAndDirectories, {
-            ignore: this.defaultIgnoreFiles.concat(configuration.exclude.files),
+            ignore: DefaultIgnoreFiles.concat(configuration.exclude.files),
             dot: true,
             followSymbolicLinks: false,
+            stats: false,
         });
 
         return arrayOfFiles;
