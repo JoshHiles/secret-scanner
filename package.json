@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "main": "./dist/secret-scanner.js",
-    "types": "dist/secret-scanner.d.ts",
+    "types": "./dist/secret-scanner.d.ts",
     "bin": "./dist/secret-scanner.js",
     "files": [
         "dist/**/*",
