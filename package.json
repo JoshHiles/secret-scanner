@@ -55,7 +55,7 @@
         "pkg": "^5.4.1",
         "prettier": "^2.4.1",
         "rimraf": "^3.0.2",
-        "semantic-release": "^18.0.0",
+        "semantic-release": "^19.0.3",
         "ts-jest": "^27.0.7",
         "ts-mockito": "^2.6.1",
         "ts-node": "^10.4.0",
