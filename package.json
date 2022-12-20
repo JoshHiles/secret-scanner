@@ -1,87 +1,102 @@
 {
-    "name": "secret-scanner",
-    "author": "Joshua Hiles",
-    "version": "1.0.3",
-    "description": "secret scanner",
-    "keywords": [
-        "secret",
-        "scanner"
-    ],
-    "license": "MIT",
-    "main": "./dist/secret-scanner.js",
-    "types": "./dist/secret-scanner.d.ts",
-    "bin": "./dist/secret-scanner.js",
-    "files": [
-        "dist/**/*",
-        "!dist/**/*.test.js"
-    ],
-    "scripts": {
-        "scan": "ts-node ./src/secret-scanner.ts scan -l testing/** -d",
-        "audit": "ts-node ./src/secret-scanner.ts audit",
-        "hook": "ts-node ./src/secret-scanner.ts scan --hook",
-        "clean": "rimraf ./dist/ ./exec/",
-        "build": "npm run clean && tsc -p .",
-        "test": "jest --coverage",
-        "watch": "jest --watch",
-        "bundle": "tsc -p . && pkg . --out-dir ./exec/",
-        "lint": "eslint .",
-        "semantic-release": "semantic-release",
-        "docs": "typedoc --out docs ./src",
-        "prepare": "husky install"
-    },
-    "devDependencies": {
-        "@semantic-release/changelog": "^6.0.1",
-        "@semantic-release/commit-analyzer": "^9.0.2",
-        "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^8.0.2",
-        "@semantic-release/npm": "^9.0.0",
-        "@semantic-release/release-notes-generator": "^10.0.3",
-        "@types/clear": "^0.1.2",
-        "@types/inquirer": "^8.2.0",
-        "@types/jest": "^27.4.0",
-        "@types/luxon": "^2.0.9",
-        "@types/mock-fs": "^4.13.1",
-        "@types/node": "^17.0.14",
-        "@types/nodegit": "^0.27.9",
-        "@types/yargs": "^17.0.8",
-        "@typescript-eslint/eslint-plugin": "^5.10.2",
-        "@typescript-eslint/parser": "^5.10.2",
-        "eslint": "^8.8.0",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "husky": "^7.0.4",
-        "jest": "^27.4.7",
-        "mock-fs": "^5.1.2",
-        "nyc": "^15.1.0",
-        "pkg": "^5.5.2",
-        "prettier": "^2.5.1",
-        "rimraf": "^3.0.2",
-        "semantic-release": "^19.0.2",
-        "ts-jest": "^27.1.3",
-        "ts-mockito": "^2.6.1",
-        "ts-node": "^10.4.0",
-        "typescript": "^4.5.5"
-    },
-    "dependencies": {
-        "chalk": "^4.1.2",
-        "clear": "^0.1.0",
-        "cosmiconfig": "^7.0.1",
-        "fast-glob": "^3.2.11",
-        "inquirer": "^8.2.0",
-        "luxon": "^2.3.0",
-        "stopwatch-node": "^1.1.0",
-        "ts-import": "^2.0.40",
-        "tslib": "^2.3.1",
-        "yargs": "^17.3.1"
-    },
-    "pkg": {
-        "scripts": [
-            "dist/**/*.js"
-        ]
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/JoshHiles/secret-scanner.git"
-    },
-    "bugs": "https://github.com/JoshHiles/secret-scanner/labels/bug"
+  "name": "secret-scanner",
+  "packageManager": "yarn@3.3.0",
+  "author": "Joshua Hiles",
+  "version": "1.0.3",
+  "description": "secret scanner",
+  "keywords": [
+    "secret",
+    "scanner"
+  ],
+  "license": "MIT",
+  "main": "./dist/secret-scanner.js",
+  "types": "./dist/secret-scanner.d.ts",
+  "bin": "./dist/secret-scanner.js",
+  "files": [
+    "dist/**/*",
+    "!dist/**/*.test.js"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
+  "scripts": {
+    "scan": "tsx ./src/secret-scanner.ts scan -l testing/** -d",
+    "audit": "tsx ./src/secret-scanner.ts audit",
+    "hook": "tsx ./src/secret-scanner.ts scan --hook",
+    "clean": "rimraf ./dist/ ./exec/",
+    "build": "npm run clean && tsc -p .",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "watch": "jest --watch",
+    "bundle": "tsc -p . && pkg . --out-dir ./exec/",
+    "format": "yarn rome check",
+    "lint": "yarn rome check ./src",
+    "semantic-release": "semantic-release",
+    "docs": "typedoc --out docs ./src",
+    "prepare": "husky install",
+    "testing": "tsx ./testing.ts"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.2",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.7",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/clear": "^0.1.2",
+    "@types/inquirer": "^9.0.3",
+    "@types/luxon": "^3.1.0",
+    "@types/mock-fs": "^4.13.1",
+    "@types/node": "^18.11.17",
+    "@types/nodegit": "^0.28.2",
+    "@types/yargs": "^17.0.17",
+    "@vitest/coverage-c8": "^0.25.8",
+    "@vitest/ui": "^0.25.8",
+    "esbuild": "^0.16.9",
+    "husky": "^8.0.2",
+    "jest": "^29.3.1",
+    "mock-fs": "^5.2.0",
+    "nyc": "^15.1.0",
+    "pkg": "^5.8.0",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rome": "^11.0.0",
+    "semantic-release": "^19.0.5",
+    "ts-mockito": "^2.6.1",
+    "tsx": "^3.12.1",
+    "tsyringe": "^4.7.0",
+    "typescript": "^4.9.4",
+    "vitest": "^0.25.8"
+  },
+  "dependencies": {
+    "@abraham/reflection": "^0.11.0",
+    "chalk": "^5.2.0",
+    "clear": "^0.1.0",
+    "conf": "^10.2.0",
+    "fast-glob": "^3.2.12",
+    "inquirer": "^9.1.4",
+    "lilconfig": "^2.0.6",
+    "luxon": "^3.1.1",
+    "stopwatch-node": "^1.1.0",
+    "ts-import": "^2.0.40",
+    "tslib": "^2.4.1",
+    "yargs": "^17.6.2"
+  },
+  "pkg": {
+    "scripts": [
+      "dist/**/*.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoshHiles/secret-scanner.git"
+  },
+  "bugs": "https://github.com/JoshHiles/secret-scanner/labels/bug",
+  "dependenciesMeta": {
+    "tsx@3.12.1": {
+      "unplugged": true
+    }
+  }
 }

@@ -1,8 +1,0 @@
-testing
-.yarn
-yarn.lock
-dist
-exec
-node_modules
-coverage
-.nyc_output

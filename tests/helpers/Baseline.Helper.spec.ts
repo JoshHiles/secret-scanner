@@ -2,7 +2,6 @@ import chalk from 'chalk';
 
 jest.mock('fs');
 import { readFileSync, writeFileSync } from 'fs';
-import { mocked } from 'ts-jest/utils';
 
 import { DateTime } from 'luxon';
 
@@ -21,7 +20,7 @@ describe('Baseline Helper', () => {
 
     describe('LoadBaseline', () => {
         test('LoadBaseline', () => {
-            mocked(readFileSync as jest.Mock).mockImplementation(() => {
+            jest.mocked(readFileSync as jest.Mock).mockImplementation(() => {
                 return Buffer.from(JSON.stringify(testBaseline));
             });
 
@@ -31,10 +30,10 @@ describe('Baseline Helper', () => {
         });
 
         test('CreateBaselineFile', () => {
-            mocked(readFileSync as jest.Mock).mockImplementation(() => {
+            jest.mocked(readFileSync as jest.Mock).mockImplementation(() => {
                 throw new Error('no baseline');
             });
-            mocked(writeFileSync as jest.Mock).mockImplementation(() => {
+            jest.mocked(writeFileSync as jest.Mock).mockImplementation(() => {
                 return;
             });
             console.info = jest.fn();
@@ -50,7 +49,7 @@ describe('Baseline Helper', () => {
 
     describe('SaveBaselineToFile', () => {
         test('SaveBaselineToFile', () => {
-            mocked(writeFileSync as jest.Mock).mockImplementation(() => {
+            jest.mocked(writeFileSync as jest.Mock).mockImplementation(() => {
                 return;
             });
             console.info = jest.fn();
@@ -62,7 +61,7 @@ describe('Baseline Helper', () => {
 
         test('SaveBaselineToFile error', () => {
             console.error = jest.fn();
-            mocked(writeFileSync as jest.Mock).mockImplementation(() => {
+            jest.mocked(writeFileSync as jest.Mock).mockImplementation(() => {
                 throw new Error('failed to save');
             });
 

@@ -1,4 +1,4 @@
-import Plugin from '../types/interfaces/plugin';
+import Plugin from '../dist/interfaces/Plugin';
 
 export default class UserPlugin implements Plugin {
     Name = 'user-plugin';

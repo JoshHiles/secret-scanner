@@ -84,7 +84,7 @@ An example config
 
 ### Custom Plugins
 
-Please see [Custom Plugins](CUSTOM_PLUGINS.md)
+Please see [Custom Plugins](./Docs/CustomPlugins.md)
 
 ### Disabling Plugins
 

@@ -26,12 +26,6 @@ export default class PluginHelper {
             }
         }
 
-        if (configuration.plugins.length > 0) {
-            for (const userPlugin of configuration.plugins) {
-                plugins.push(path.resolve(userPlugin));
-            }
-        }
-
         if (configuration.disable_plugins.length > 0) {
             plugins = plugins.filter(function (plugin) {
                 return !configuration.disable_plugins.includes(parse(plugin).name);
