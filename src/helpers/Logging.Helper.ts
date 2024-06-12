@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Results } from '../types/Baseline';
+import { Results } from '../interfaces/Baseline';
 
 export default class LoggingHelper {
     LogNoSecretsFound() {

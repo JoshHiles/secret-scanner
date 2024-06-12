@@ -8,24 +8,26 @@
 
 Based off the well established [Yelp detect-secrets](https://github.com/Yelp/detect-secrets) (please go check them out if your using python!), _secret-scanner_ aims to provide a similiar experience within the node realm.
 
--   [Issues](https://github.com/JoshHiles/secret-scanner/issues)
--   [Discussions](https://github.com/JoshHiles/secret-scanner/discussions)
--   [Recent Changes](CHANGELOG.md)
-<!-- -   [Contributing]() -->
+Secret Scanner provides the ability to
+
+-   scan for secrets based off know regexes of potentially sensitive information
+-   prevent new secrets from entering the code base
+-   provide a way to baseline know secrets with the possibility of moving these off the code base.
 
 ### Sections
 
-- [Secret Scanner](#secret-scanner)
-  - [About](#about)
-    - [Sections](#sections)
-  - [Installation](#installation)
-  - [Quickstart](#quickstart)
-  - [Configuration](#configuration)
-    - [Disable Plugins](#disable-plugins)
-    - [Exclude Lines](#exclude-lines)
-    - [Exclude Files](#exclude-files)
-    - [Exclude Secrets](#exclude-secrets)
-  - [CLI](#cli)
+-   [Issues & proposing features](https://github.com/JoshHiles/secret-scanner/issues)
+-   [Discussions](https://github.com/JoshHiles/secret-scanner/discussions)
+-   [Recent Changes](CHANGELOG.md)
+-   [Installation](#installation)
+-   [Quickstart](#quickstart)
+-   [Configuration](#configuration)
+    -   [Custom Plugins](#custom-plugins)
+    -   [Disable Plugins](#disable-plugins)
+    -   [Exclude Lines](#exclude-lines)
+    -   [Exclude Files](#exclude-files)
+    -   [Exclude Secrets](#exclude-secrets)
+-   [CLI](#cli)
 
 ---
 
@@ -64,7 +66,27 @@ For example with [husky](https://typicode.github.io/husky/#/) on a NPM repo
 
 ## Configuration
 
-### Disable Plugins
+To start configuring create a `.secret-scannerrc.json` file in the root of your repo; if this file doesn't suite your needs you can have a look at [cosmiconfig](https://github.com/davidtheclark/cosmiconfig)
+
+An example config
+
+```json
+{
+    "plugins": ["./path-to/my-custom-plugin.ts"],
+    "disable_plugins": ["AWS"],
+    "exclude": {
+        "lines": ["example line"],
+        "files": ["**/fileToIgnore.js"],
+        "secrets": ["sample-secret"]
+    }
+}
+```
+
+### Custom Plugins
+
+Please see [Custom Plugins](CUSTOM_PLUGINS.md)
+
+### Disabling Plugins
 
 ```json
 {
@@ -125,14 +147,14 @@ Excluding secrets is as easy as writing the secret to be excluded or a regex.
 ```
 secret-scanner.js scan
 
-Scans directories / scans committed files
+Scans directories / committed files
 
 Options:
       --version   Show version number                                  [boolean]
       --help      Show help                                            [boolean]
   -h, --hook      Used for pre-hooks
   -l, --location  Location to scan using glob pattern, default is current
-                  working dir                     [default: "D:\Code\tester/**"]
+                  working dir                     [default: "PATH TO REPO"]
   -d, --debug
 ```
 

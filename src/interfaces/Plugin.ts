@@ -4,6 +4,7 @@ export default interface Plugin {
     Name: string;
     Regexes: RegExp[];
     ExampleMatches: ExampleMatchType | string[];
+    Initialise?(fileType: FileType): void;
 }
 
 export type ExampleMatchType = {

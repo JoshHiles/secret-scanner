@@ -1,4 +1,4 @@
-import Plugin from '../types/Plugin';
+import Plugin from '../interfaces/Plugin';
 
 export default class AWS implements Plugin {
     Name = 'AWS';

@@ -1,12 +1,13 @@
 import Scan from '../src/Scan';
-import Baseline, { Results } from '../src/types/Baseline';
-import Configuration from '../src/types/Configuration';
+import Baseline, { Results } from '../src/interfaces/Baseline';
+import Configuration from '../src/interfaces/Configuration';
 
 import { DateTime } from 'luxon';
 import MockHelper from './MockHelper';
 
 describe('Scan', () => {
     const testConfiguration: Configuration = {
+        plugins: [],
         disable_plugins: [],
         exclude: {
             files: [],
@@ -33,7 +34,7 @@ describe('Scan', () => {
         const mockLoggingHelper = mockHelper.SetupMockLoggingHelper();
         const mockConfigurationHelper = mockHelper.SetupMockConfigurationHelper(testConfiguration);
         const mockBaselineHelper = mockHelper.SetupMockBaselineHelper(testBaseline, testBaselineWithResults);
-        const mockPluginHelper = mockHelper.SetupMockPluginHelper(['plugin1.ts']);
+        const mockPluginHelper = mockHelper.SetupMockPluginHelper();
         const mockFileHelper = mockHelper.SetupMockFileHelper();
         const mockRunner = mockHelper.SetupMockRunner(testResults);
 
