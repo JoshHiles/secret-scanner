@@ -64,6 +64,18 @@ For example with [husky](https://typicode.github.io/husky/#/) on a NPM repo
 
 ## Configuration
 
+To include the following configurations, you'll need to create a new secret-scanner configuration file and add the configurations there. To do so, follow the conventions outlined in the [Cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) repository.
+
+> By default, Cosmiconfig will check the current directory for the following:
+>
+> * a package.json property
+> * a JSON or YAML, extensionless "rc file"
+> * an "rc file" with the extensions .json, .yaml, .yml, .js, .ts, .mjs, or .cjs
+> * any of the above two inside a .config subdirectory
+> * a .config.js, .config.ts, .config.mjs, or .config.cjs file
+
+For example: create a new file in the project root directory entitled `.secret-scannerrc`.
+
 ### Disable Plugins
 
 ```json
